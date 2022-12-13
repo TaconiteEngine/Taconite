@@ -1,6 +1,10 @@
 [package]
-name = "tea_cli_motor"
+name = "taconite"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+
+[lib]
+name = "taconite"
+path = "src/main.rs"
