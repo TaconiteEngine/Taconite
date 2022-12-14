@@ -1,6 +1,6 @@
 use ecs_rust::world::World;
 
-trait EventHandler {
+pub trait EventHandler {
     fn update(&mut self);
     fn draw(&self);
 }
