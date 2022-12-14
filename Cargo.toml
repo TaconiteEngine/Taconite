@@ -5,7 +5,6 @@ edition = "2021"
 
 [dependencies]
 ecs_rust = "0.0.4"
-miniquad = "0.3.15"
 
 [lib]
 name = "taconite"
