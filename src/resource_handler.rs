@@ -7,8 +7,12 @@ pub struct ResourceHandler {
 
 impl ResourceHandler {
     pub fn add_resource(&mut self, name: &str, path: &Path) {
-        self.resources
-            .insert(name.to_string(), path.to_str().unwrap().to_string());
+        if path.exists() {
+            self.resources
+                .insert(name.to_string(), path.to_str().unwrap().to_string());
+        } else {
+            println!("Path for resource {name} does not exist.");
+        }
     }
 
     pub fn get_resource_path(&self, resource_name: &str) -> &Path {
