@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 ecs_rust = "0.0.4"
-sdl2 = "0.35.2"
+sdl2 = { version = "0.35.2", features = [ "image" ] }
 
 [lib]
 name = "taconite"
