@@ -26,9 +26,14 @@ impl EventHandler for Taconite {
 
 impl Default for Taconite {
     fn default() -> Self {
-        Self {
+        let mut taconite = Self {
             world: World::new(),
-        }
+        };
+
+        taconite.register_component::<Transform>();
+        taconite.register_component::<Sprite>();
+
+        taconite
     }
 }
 
@@ -65,9 +70,6 @@ impl Taconite {
     }
 
     pub fn start(&mut self) {
-        self.register_component::<Transform>();
-        self.register_component::<Sprite>();
-
         self.start_window().expect("Failed to start the window.");
     }
 }
