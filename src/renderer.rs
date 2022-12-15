@@ -34,9 +34,11 @@ pub trait Renderer: EventHandler {
             }
 
             canvas.clear();
-            canvas.present();
 
             self.update();
+            self.draw(&mut canvas);
+
+            canvas.present();
         }
 
         Ok(())
