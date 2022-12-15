@@ -1,3 +1,4 @@
+use crate::renderer::*;
 use ecs_rust::{component::Component, system::System, world::World};
 
 pub trait EventHandler {
@@ -8,6 +9,8 @@ pub trait EventHandler {
 pub struct Taconite {
     world: World,
 }
+
+impl Renderer for Taconite {}
 
 impl EventHandler for Taconite {
     fn update(&mut self) {
@@ -53,5 +56,13 @@ impl Taconite {
     ) -> &mut World {
         self.world.add_component_to_entity(entity_id, component);
         &mut self.world
+    }
+
+    pub fn update(&mut self) {
+        self.world.update();
+    }
+
+    pub fn start(&mut self) {
+        self.start_window().expect("Failed to start the window.");
     }
 }
