@@ -1,9 +1,10 @@
 use crate::renderer::*;
 use ecs_rust::{component::Component, system::System, world::World};
+use sdl2::{pixels::Color, render::Canvas, video::Window};
 
 pub trait EventHandler {
     fn update(&mut self);
-    fn draw(&self);
+    fn draw(&self, canvas: &mut Canvas<Window>);
 }
 
 pub struct Taconite {
@@ -17,9 +18,7 @@ impl EventHandler for Taconite {
         self.world.update();
     }
 
-    fn draw(&self) {
-        println!("Draw");
-    }
+    fn draw(&self, canvas: &mut Canvas<Window>) {}
 }
 
 impl Default for Taconite {
