@@ -1,8 +1,6 @@
-use std::path::Path;
-
-use crate::{renderer::*, resource_handler::*};
+use crate::renderer::*;
 use ecs_rust::{component::Component, system::System, world::World};
-use sdl2::{pixels::Color, render::Canvas, video::Window};
+use sdl2::{render::Canvas, video::Window};
 
 pub trait EventHandler {
     fn update(&mut self);
@@ -11,7 +9,6 @@ pub trait EventHandler {
 
 pub struct Taconite {
     world: World,
-    resource_handler: ResourceHandler,
 }
 
 impl Renderer for Taconite {}
@@ -21,14 +18,13 @@ impl EventHandler for Taconite {
         self.world.update();
     }
 
-    fn draw(&self, canvas: &mut Canvas<Window>) {}
+    fn draw(&self, _canvas: &mut Canvas<Window>) {}
 }
 
 impl Default for Taconite {
     fn default() -> Self {
         Self {
             world: World::new(),
-            resource_handler: ResourceHandler::default(),
         }
     }
 }
@@ -59,14 +55,6 @@ impl Taconite {
     ) -> &mut World {
         self.world.add_component_to_entity(entity_id, component);
         &mut self.world
-    }
-
-    pub fn add_resource(&mut self, name: &str, path: &Path) {
-        self.resource_handler.add_resource(name, path);
-    }
-
-    pub fn get_resource_path(&self, name: &str) -> &Path {
-        self.get_resource_path(name)
     }
 
     pub fn update(&mut self) {
