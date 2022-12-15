@@ -4,18 +4,39 @@ use ecs_rust::{
 };
 use taconite::*;
 
-struct PrintUpdateSystem {}
+struct PrintTransformSystem {}
 
-impl System for PrintUpdateSystem {
-    fn update(&mut self, _manager: &mut EntityManager, _accessor: &mut EntityIdAccessor) {
-        println!("Updated world, this system has been run.");
+impl System for PrintTransformSystem {
+    fn update(&mut self, manager: &mut EntityManager, _accessor: &mut EntityIdAccessor) {
+        let transforms = manager.borrow_components::<Transform>().unwrap();
+
+        for transform in transforms.iter() {
+            println!(
+                "Position:\nx: {} y: {} z: {}\n\nRotation:\nx: {} y: {} z: {}\n",
+                transform.position.x,
+                transform.position.y,
+                transform.position.z,
+                transform.rotation.x,
+                transform.rotation.y,
+                transform.rotation.z
+            )
+        }
     }
 }
 
 fn main() {
     let mut taconite = Taconite::default();
 
-    taconite.add_system(PrintUpdateSystem {});
+    let entity = taconite.create_entity();
+    taconite.add_component_to_entity(
+        entity,
+        Transform {
+            rotation: Vector3::new(45., 45., 0.),
+            ..Default::default()
+        },
+    );
+
+    taconite.add_system(PrintTransformSystem {});
 
     taconite.start();
 }
