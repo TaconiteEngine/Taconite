@@ -1,4 +1,7 @@
-use crate::renderer::*;
+use crate::{
+    components::{Sprite, Transform},
+    renderer::*,
+};
 use ecs_rust::{component::Component, system::System, world::World};
 use sdl2::{render::Canvas, video::Window};
 
@@ -62,6 +65,9 @@ impl Taconite {
     }
 
     pub fn start(&mut self) {
+        self.register_component::<Transform>();
+        self.register_component::<Sprite>();
+
         self.start_window().expect("Failed to start the window.");
     }
 }
