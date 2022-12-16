@@ -4,12 +4,7 @@ use sdl2::{
 
 pub trait EventHandler {
     fn update(&mut self);
-    fn draw(&self, canvas: &mut Canvas<Window>) {
-        canvas.set_draw_color(Color::RGB(0, 0, 0));
-        canvas
-            .fill_rect(Rect::new(16, 16, 128, 128))
-            .expect("Failed to draw rectangle.");
-    }
+    fn draw(&self, canvas: &mut Canvas<Window>);
 }
 
 pub trait Renderer: EventHandler {
