@@ -2,11 +2,13 @@ pub struct Entity {
     alive: bool,
 }
 
-impl Entity {
-    pub fn new() -> Self {
-        Entity { alive: true }
+impl Default for Entity {
+    fn default() -> Self {
+        Self { alive: true }
     }
+}
 
+impl Entity {
     pub fn is_alive(&self) -> bool {
         self.alive
     }
