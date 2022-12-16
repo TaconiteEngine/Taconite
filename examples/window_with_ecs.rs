@@ -28,13 +28,9 @@ fn main() {
     let mut taconite = Taconite::default();
 
     let entity = taconite.create_entity();
-    taconite.add_component_to_entity(
-        entity,
-        Transform {
-            rotation: Vector3::new(45., 45., 0.),
-            ..Default::default()
-        },
-    );
+
+    taconite.add_component_to_entity(entity, Transform::default());
+    taconite.add_component_to_entity(entity, Shape::default());
 
     taconite.add_system(PrintTransformSystem {});
 
