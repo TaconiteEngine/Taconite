@@ -4,7 +4,6 @@ use crate::{
     renderer::*,
     Shape,
 };
-use log::*;
 
 pub struct Taconite {
     world: World,
@@ -23,7 +22,7 @@ impl EventHandler for Taconite {
 impl Default for Taconite {
     fn default() -> Self {
         let mut taconite = Self {
-            world: World::new(),
+            world: World::default(),
         };
 
         taconite.register_component::<Transform>();
