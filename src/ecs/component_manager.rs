@@ -1,9 +1,9 @@
+use super::component::Component;
+use log::*;
 use std::{
     any::{Any, TypeId},
     collections::HashMap,
 };
-
-use super::component::Component;
 
 pub trait ComponentManagerT {
     fn as_any(&self) -> &dyn Any;

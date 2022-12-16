@@ -3,8 +3,13 @@ use crate::ecs::{
     component_manager::{cast_manager, cast_manager_mut, ComponentManager, ComponentManagerT},
     entity::Entity,
 };
-use std::{any::TypeId, collections::HashMap, mem::transmute, vec};
-
+use log::*;
+use std::{
+    any::TypeId,
+    collections::{hash_map, HashMap},
+    mem::transmute,
+    vec,
+};
 struct Entities {
     entities: Vec<Entity>,
     available_indexes: Vec<usize>,
@@ -23,7 +28,7 @@ impl Entities {
     }
 
     fn create(&mut self) -> usize {
-        if self.available_indexes.len() > 0 {
+        if !self.available_indexes.is_empty() {
             let index = self.available_indexes.remove(0);
             self.entities[index].enable();
             return index;
@@ -67,8 +72,8 @@ impl EntityIdAccessor {
         }
 
         let type_id = TypeId::of::<T>();
-        let needs_update = if !self.caching_map.contains_key(&type_id) {
-            self.caching_map.insert(type_id, Vec::new());
+        let needs_update = if let hash_map::Entry::Vacant(e) = self.caching_map.entry(type_id) {
+            e.insert(Vec::new());
             true
         } else {
             let updated_frame = *self.updated_map.get(&type_id).unwrap();
