@@ -1,5 +1,5 @@
+use crate::ecs::*;
 use crate::types::*;
-use ecs_rust::component::Component;
 use sdl2::render::Texture;
 
 pub struct Transform {
