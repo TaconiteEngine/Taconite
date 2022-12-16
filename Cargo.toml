@@ -2,11 +2,22 @@
 name = "taconite"
 version = "0.1.0"
 edition = "2021"
+authors = [ "TeaSpillStudios <TeaSpillStudios@proton.me>" ]
+license = "MIT"
+homepage = "https://rustbytes.uk/projects/taconite"
+repository = "https://git.rustbytes.uk/RustBytes/Taconite"
+description = "A simple game engine wrote in rust for simplicity, speed and memory safety."
 
 [dependencies]
 ecs_rust = "0.0.4"
+env_logger = "0.10.0"
+log = "0.4.17"
 sdl2 = { version = "0.35.2", features = [ "image" ] }
 
 [lib]
 name = "taconite"
 path = "src/lib.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
