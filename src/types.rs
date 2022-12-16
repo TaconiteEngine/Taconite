@@ -10,6 +10,10 @@ pub struct Vector3 {
 }
 
 impl Vector2 {
+    pub fn new(x: f32, y: f32) -> Self {
+        Self { x, y }
+    }
+
     pub fn splat(val: f32) -> Self {
         Self { x: val, y: val }
     }
