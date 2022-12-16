@@ -10,19 +10,14 @@ use std::{
     mem::transmute,
     vec,
 };
+
+#[derive(Default)]
 struct Entities {
     entities: Vec<Entity>,
     available_indexes: Vec<usize>,
 }
 
 impl Entities {
-    fn new() -> Self {
-        Entities {
-            entities: vec![],
-            available_indexes: vec![],
-        }
-    }
-
     fn entity_exists(&self, entity_id: usize) -> bool {
         entity_id < self.entities.len() && self.entities[entity_id].is_alive()
     }
@@ -34,7 +29,7 @@ impl Entities {
             return index;
         }
 
-        self.entities.push(Entity::new());
+        self.entities.push(Entity::default());
 
         self.entities.len() - 1
     }
@@ -50,19 +45,13 @@ impl Entities {
     }
 }
 
+#[derive(Default)]
 pub struct EntityIdAccessor {
     caching_map: HashMap<TypeId, Vec<usize>>,
     updated_map: HashMap<TypeId, u64>,
 }
 
 impl EntityIdAccessor {
-    pub fn new() -> Self {
-        EntityIdAccessor {
-            caching_map: HashMap::new(),
-            updated_map: HashMap::new(),
-        }
-    }
-
     pub fn borrow_ids<T: 'static + Component>(
         &mut self,
         manager: &EntityManager,
@@ -102,14 +91,15 @@ impl EntityIdAccessor {
         }
 
         let type_id = TypeId::of::<(T1, T2)>();
-        let needs_update = if !self.caching_map.contains_key(&type_id) {
-            self.caching_map.insert(type_id, Vec::new());
-            true
-        } else {
-            let updated_frame = *self.updated_map.get(&type_id).unwrap();
-            manager.get_updated_frame::<T1>() != updated_frame
-                || manager.get_updated_frame::<T2>() != updated_frame
-        };
+        let needs_update =
+            if let std::collections::hash_map::Entry::Vacant(e) = self.caching_map.entry(type_id) {
+                e.insert(Vec::new());
+                true
+            } else {
+                let updated_frame = *self.updated_map.get(&type_id).unwrap();
+                manager.get_updated_frame::<T1>() != updated_frame
+                    || manager.get_updated_frame::<T2>() != updated_frame
+            };
 
         if needs_update {
             // TODO: Can be optimized if iterating a shorter array
@@ -144,15 +134,16 @@ impl EntityIdAccessor {
         }
 
         let type_id = TypeId::of::<(T1, T2, T3)>();
-        let needs_update = if !self.caching_map.contains_key(&type_id) {
-            self.caching_map.insert(type_id, Vec::new());
-            true
-        } else {
-            let updated_frame = *self.updated_map.get(&type_id).unwrap();
-            manager.get_updated_frame::<T1>() != updated_frame
-                || manager.get_updated_frame::<T2>() != updated_frame
-                || manager.get_updated_frame::<T3>() != updated_frame
-        };
+        let needs_update =
+            if let std::collections::hash_map::Entry::Vacant(e) = self.caching_map.entry(type_id) {
+                e.insert(Vec::new());
+                true
+            } else {
+                let updated_frame = *self.updated_map.get(&type_id).unwrap();
+                manager.get_updated_frame::<T1>() != updated_frame
+                    || manager.get_updated_frame::<T2>() != updated_frame
+                    || manager.get_updated_frame::<T3>() != updated_frame
+            };
 
         if needs_update {
             // TODO: Can be optimized if iterating the shortest array
@@ -190,16 +181,17 @@ impl EntityIdAccessor {
         }
 
         let type_id = TypeId::of::<(T1, T2, T3, T4)>();
-        let needs_update = if !self.caching_map.contains_key(&type_id) {
-            self.caching_map.insert(type_id, Vec::new());
-            true
-        } else {
-            let updated_frame = *self.updated_map.get(&type_id).unwrap();
-            manager.get_updated_frame::<T1>() != updated_frame
-                || manager.get_updated_frame::<T2>() != updated_frame
-                || manager.get_updated_frame::<T3>() != updated_frame
-                || manager.get_updated_frame::<T4>() != updated_frame
-        };
+        let needs_update =
+            if let std::collections::hash_map::Entry::Vacant(e) = self.caching_map.entry(type_id) {
+                e.insert(Vec::new());
+                true
+            } else {
+                let updated_frame = *self.updated_map.get(&type_id).unwrap();
+                manager.get_updated_frame::<T1>() != updated_frame
+                    || manager.get_updated_frame::<T2>() != updated_frame
+                    || manager.get_updated_frame::<T3>() != updated_frame
+                    || manager.get_updated_frame::<T4>() != updated_frame
+            };
 
         if needs_update {
             // TODO: Can be optimized if iterating the shortest array
@@ -224,6 +216,7 @@ impl EntityIdAccessor {
     }
 }
 
+#[derive(Default)]
 pub struct EntityManager {
     entities: Entities,
     manager_map: HashMap<TypeId, Box<dyn ComponentManagerT>>,
@@ -232,15 +225,6 @@ pub struct EntityManager {
 }
 
 impl EntityManager {
-    pub fn new() -> Self {
-        EntityManager {
-            entities: Entities::new(),
-            manager_map: HashMap::new(),
-            frame: 0,
-            updated_frame_map: HashMap::new(),
-        }
-    }
-
     pub fn increment_frame(&mut self) {
         self.frame += 1;
     }
