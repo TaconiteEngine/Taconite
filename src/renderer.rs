@@ -1,6 +1,4 @@
-use sdl2::{
-    event::Event, keyboard::Keycode, pixels::Color, rect::Rect, render::Canvas, video::Window,
-};
+use sdl2::{event::Event, keyboard::Keycode, pixels::Color, render::Canvas, video::Window};
 
 pub trait EventHandler {
     fn update(&mut self);
