@@ -4,6 +4,7 @@ use super::{
     system::System,
 };
 
+#[derive(Default)]
 pub struct World {
     entity_manager: EntityManager,
     entity_id_accessor: EntityIdAccessor,
@@ -11,14 +12,6 @@ pub struct World {
 }
 
 impl World {
-    pub fn new() -> Self {
-        World {
-            entity_manager: EntityManager::new(),
-            entity_id_accessor: EntityIdAccessor::new(),
-            systems: vec![],
-        }
-    }
-
     pub fn create_entity(&mut self) -> usize {
         self.entity_manager.create_entity()
     }
@@ -32,13 +25,18 @@ impl World {
         self
     }
 
-    pub fn add_system<T: 'static + System>(&mut self, system: T)-> &mut Self {
+    pub fn add_system<T: 'static + System>(&mut self, system: T) -> &mut Self {
         self.systems.push(Box::new(system));
         self
     }
 
-    pub fn add_component_to_entity<T: 'static + Component>(&mut self, entity_id: usize, component: T) -> &mut Self {
-        self.entity_manager.add_component_to_entity(entity_id, component);
+    pub fn add_component_to_entity<T: 'static + Component>(
+        &mut self,
+        entity_id: usize,
+        component: T,
+    ) -> &mut Self {
+        self.entity_manager
+            .add_component_to_entity(entity_id, component);
         self
     }
 
