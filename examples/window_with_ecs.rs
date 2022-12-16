@@ -1,7 +1,3 @@
-use ecs_rust::{
-    entity_manager::{EntityIdAccessor, EntityManager},
-    system::System,
-};
 use taconite::*;
 
 struct PrintTransformSystem {}
