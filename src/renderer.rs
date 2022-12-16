@@ -1,5 +1,16 @@
-use crate::EventHandler;
-use sdl2::{event::Event, keyboard::Keycode, pixels::Color};
+use sdl2::{
+    event::Event, keyboard::Keycode, pixels::Color, rect::Rect, render::Canvas, video::Window,
+};
+
+pub trait EventHandler {
+    fn update(&mut self);
+    fn draw(&self, canvas: &mut Canvas<Window>) {
+        canvas.set_draw_color(Color::RGB(0, 0, 0));
+        canvas
+            .fill_rect(Rect::new(16, 16, 128, 128))
+            .expect("Failed to draw rectangle.");
+    }
+}
 
 pub trait Renderer: EventHandler {
     fn start_window(&mut self) -> Result<(), String> {
@@ -33,6 +44,7 @@ pub trait Renderer: EventHandler {
                 }
             }
 
+            canvas.set_draw_color(Color::RGB(46, 52, 64));
             canvas.clear();
 
             self.update();
