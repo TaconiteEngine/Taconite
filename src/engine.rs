@@ -1,9 +1,10 @@
+use crate::ecs::*;
 use crate::{
     components::{Sprite, Transform},
     renderer::*,
     Shape,
 };
-use ecs_rust::{component::Component, system::System, world::World};
+use log::*;
 
 pub struct Taconite {
     world: World,
@@ -16,7 +17,7 @@ impl EventHandler for Taconite {
         self.world.update();
     }
 
-    fn draw(&self, canvas: &mut sdl2::render::Canvas<sdl2::video::Window>) {}
+    fn draw(&self, _canvas: &mut sdl2::render::Canvas<sdl2::video::Window>) {}
 }
 
 impl Default for Taconite {
