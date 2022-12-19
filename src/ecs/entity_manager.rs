@@ -8,7 +8,6 @@ use std::{
     any::TypeId,
     collections::{hash_map, HashMap},
     mem::transmute,
-    vec,
 };
 
 #[derive(Default)]
