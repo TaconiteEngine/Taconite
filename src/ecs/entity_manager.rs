@@ -228,16 +228,20 @@ pub struct EntityManager {
     updated_frame_map: HashMap<TypeId, u64>, // Rename
 }
 
-impl EntityManager {
-    pub fn new() -> Self {
-        EntityManager {
+impl Default for EntityManager {
+    fn default() -> Self {
+        Self {
             entities: Entities::new(),
             manager_map: HashMap::new(),
+
             frame: 0,
+
             updated_frame_map: HashMap::new(),
         }
     }
+}
 
+impl EntityManager {
     pub fn increment_frame(&mut self) {
         self.frame += 1;
     }
