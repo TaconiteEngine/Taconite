@@ -8,15 +8,21 @@ use std::{
     any::TypeId,
     collections::{hash_map, HashMap},
     mem::transmute,
+    vec,
 };
-
-#[derive(Default)]
 struct Entities {
     entities: Vec<Entity>,
     available_indexes: Vec<usize>,
 }
 
 impl Entities {
+    fn new() -> Self {
+        Entities {
+            entities: vec![],
+            available_indexes: vec![],
+        }
+    }
+
     fn entity_exists(&self, entity_id: usize) -> bool {
         entity_id < self.entities.len() && self.entities[entity_id].is_alive()
     }
@@ -215,7 +221,6 @@ impl EntityIdAccessor {
     }
 }
 
-#[derive(Default)]
 pub struct EntityManager {
     entities: Entities,
     manager_map: HashMap<TypeId, Box<dyn ComponentManagerT>>,
@@ -224,6 +229,15 @@ pub struct EntityManager {
 }
 
 impl EntityManager {
+    pub fn new() -> Self {
+        EntityManager {
+            entities: Entities::new(),
+            manager_map: HashMap::new(),
+            frame: 0,
+            updated_frame_map: HashMap::new(),
+        }
+    }
+
     pub fn increment_frame(&mut self) {
         self.frame += 1;
     }
