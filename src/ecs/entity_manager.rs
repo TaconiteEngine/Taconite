@@ -548,7 +548,7 @@ impl EntityManager {
     }
 }
 
-#[allow(clippy::mut_from_ref)]
+#[allow(clippy::mut_from_ref, clippy::borrowed_box)]
 fn cast_manager_mut_unsafe<T: 'static + Component>(
     manager: &Box<dyn ComponentManagerT>,
 ) -> &mut ComponentManager<T> {
