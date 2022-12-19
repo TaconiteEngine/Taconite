@@ -60,9 +60,10 @@ pub struct ComponentManager<T: Component> {
     entity_id_map: HashMap<usize, usize>,
 }
 
+#[allow(clippy::new_without_default)]
 impl<T: Component> ComponentManager<T> {
     pub fn new() -> Self {
-        ComponentManager {
+        Self {
             components: Vec::new(),
             entity_ids: Vec::new(),
             entity_id_map: HashMap::new(),
