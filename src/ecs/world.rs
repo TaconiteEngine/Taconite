@@ -4,11 +4,20 @@ use super::{
     system::System,
 };
 
-#[derive(Default)]
 pub struct World {
     entity_manager: EntityManager,
     entity_id_accessor: EntityIdAccessor,
     systems: Vec<Box<dyn System>>,
+}
+
+impl Default for World {
+    fn default() -> Self {
+        Self {
+            entity_manager: EntityManager::new(),
+            entity_id_accessor: EntityIdAccessor::default(),
+            systems: Vec::new(),
+        }
+    }
 }
 
 impl World {
