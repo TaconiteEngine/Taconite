@@ -1,6 +1,6 @@
 use crate::ecs::*;
 use crate::types::*;
-use sdl2::render::Texture;
+//use sdl2::render::Texture;
 
 pub struct Transform {
     pub position: Vector3,
@@ -34,10 +34,10 @@ impl Default for Shape {
     }
 }
 
-pub struct Sprite<'a> {
-    texture: Texture<'a>,
+pub struct Sprite /*<'a>*/ {
+    //texture: Texture<'a>,
 }
 
 impl Component for Transform {}
-impl Component for Sprite<'_> {}
+impl Component for Sprite /*<'_>*/ {}
 impl Component for Shape {}
