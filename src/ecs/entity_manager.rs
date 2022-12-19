@@ -393,7 +393,7 @@ impl EntityManager {
             manager3.borrow_components_mut(),
         ))
     }
-
+    #[allow(clippy::type_complexity)]
     pub fn borrow_components_quad_mut<
         T1: 'static + Component,
         T2: 'static + Component,
