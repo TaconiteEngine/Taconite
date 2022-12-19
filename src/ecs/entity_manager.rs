@@ -7,7 +7,6 @@ use log::*;
 use std::{
     any::TypeId,
     collections::{hash_map, HashMap},
-    mem::transmute,
     vec,
 };
 struct Entities {
@@ -554,5 +553,5 @@ fn cast_manager_mut_unsafe<T: 'static + Component>(
 ) -> &mut ComponentManager<T> {
     let ptr =
         cast_manager(manager.as_ref()) as *const ComponentManager<T> as *mut ComponentManager<T>;
-    unsafe { transmute(ptr) }
+    unsafe { &mut *ptr }
 }
