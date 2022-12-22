@@ -1,6 +1,3 @@
-use ecs_rust::component::Component;
-use ecs_rust::entity_manager::{EntityIdAccessor, EntityManager};
-use ecs_rust::system::System;
 use taconite::*;
 
 struct Position {
