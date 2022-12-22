@@ -21,6 +21,8 @@ impl System for PrintTransformSystem {
 }
 
 fn main() {
+    env_logger::init();
+
     let mut taconite = Taconite::default();
 
     let entity = taconite.create_entity();
