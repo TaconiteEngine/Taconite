@@ -4,6 +4,7 @@ use crate::{
     renderer::*,
     Shape,
 };
+use log::info;
 
 pub struct Taconite {
     world: World,
@@ -28,6 +29,8 @@ impl Default for Taconite {
         taconite.register_component::<Transform>();
         taconite.register_component::<Sprite>();
         taconite.register_component::<Shape>();
+
+        info!("Created a Taconite instance.");
 
         taconite
     }
