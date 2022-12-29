@@ -2,7 +2,7 @@
 name = "taconite"
 version = "0.1.0"
 edition = "2021"
-authors = [ "TeaSpillStudios <TeaSpillStudios@proton.me>" ]
+authors = ["Rust Bytes <rustbytes@proton.me>"]
 license = "MIT"
 homepage = "https://TeaSpillStudios.vercel.app/projects/taconite"
 repository = "https://git.rustbytes.uk/RustBytes/Taconite"
@@ -11,7 +11,7 @@ description = "A simple game engine wrote in rust for simplicity, speed and memo
 [dependencies]
 env_logger = "0.10.0"
 log = "0.4.17"
-sdl2 = { version = "0.35.2", features = [ "image" ] }
+sdl2 = { version = "0.35.2", features = ["image"] }
 
 [lib]
 name = "taconite"
