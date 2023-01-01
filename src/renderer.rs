@@ -17,7 +17,11 @@ pub trait Renderer: EventHandler {
             .build()
             .map_err(|e| e.to_string())?;
 
-        let mut canvas = window.into_canvas().build().map_err(|e| e.to_string())?;
+        let mut canvas = window
+            .into_canvas()
+            .present_vsync()
+            .build()
+            .map_err(|e| e.to_string())?;
 
         canvas.set_draw_color(Color::RGB(46, 52, 64));
         canvas.clear();
@@ -37,8 +41,8 @@ pub trait Renderer: EventHandler {
                 }
             }
 
-            canvas.set_draw_color(Color::RGB(46, 52, 64));
-            canvas.clear();
+            //canvas.set_draw_color(Color::RGB(46, 52, 64));
+            //canvas.clear();
 
             self.update();
             self.draw(&mut canvas);
