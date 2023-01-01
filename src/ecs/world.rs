@@ -1,7 +1,9 @@
+use sdl2::{render::Canvas, video::Window};
+
 use super::{
     component::Component,
     entity_manager::{EntityIdAccessor, EntityManager},
-    system::System,
+    system::{RenderSystem, System},
 };
 
 #[derive(Default)]
@@ -9,6 +11,7 @@ pub struct World {
     entity_manager: EntityManager,
     entity_id_accessor: EntityIdAccessor,
     systems: Vec<Box<dyn System>>,
+    render_systems: Vec<Box<dyn RenderSystem>>,
 }
 
 impl World {
@@ -30,6 +33,11 @@ impl World {
         self
     }
 
+    pub fn add_render_system<T: 'static + RenderSystem>(&mut self, system: T) -> &mut Self {
+        self.render_systems.push(Box::new(system));
+        self
+    }
+
     pub fn add_component_to_entity<T: 'static + Component>(
         &mut self,
         entity_id: usize,
@@ -43,6 +51,18 @@ impl World {
     pub fn update(&mut self) {
         for system in self.systems.iter_mut() {
             system.update(&mut self.entity_manager, &mut self.entity_id_accessor);
+            self.entity_manager.increment_frame();
+        }
+    }
+
+    pub fn update_render(&mut self, canvas: &mut Canvas<Window>) {
+        for render_system in self.render_systems.iter_mut() {
+            render_system.update(
+                &mut self.entity_manager,
+                &mut self.entity_id_accessor,
+                canvas,
+            );
+
             self.entity_manager.increment_frame();
         }
     }
