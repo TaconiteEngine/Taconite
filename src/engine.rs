@@ -6,6 +6,8 @@ use crate::{
 };
 use log::info;
 
+use sdl2::{render::Canvas, video::Window};
+
 pub struct Taconite {
     world: World,
 }
@@ -17,7 +19,9 @@ impl EventHandler for Taconite {
         self.world.update();
     }
 
-    fn draw(&self, _canvas: &mut sdl2::render::Canvas<sdl2::video::Window>) {}
+    fn draw(&mut self, canvas: &mut Canvas<Window>) {
+        self.world.update_render(canvas);
+    }
 }
 
 impl Default for Taconite {
@@ -52,6 +56,11 @@ impl Taconite {
 
     pub fn add_system<T: 'static + System>(&mut self, system: T) -> &mut World {
         self.world.add_system(system);
+        &mut self.world
+    }
+
+    pub fn add_render_system<T: 'static + RenderSystem>(&mut self, system: T) -> &mut World {
+        self.world.add_render_system(system);
         &mut self.world
     }
 
