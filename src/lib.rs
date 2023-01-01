@@ -1,7 +1,7 @@
 mod components;
 pub mod ecs;
 mod engine;
-mod new_year;
+pub mod new_year;
 mod renderer;
 mod types;
 
