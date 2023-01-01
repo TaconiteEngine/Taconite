@@ -2,7 +2,7 @@ use sdl2::{event::Event, keyboard::Keycode, pixels::Color, render::Canvas, video
 
 pub trait EventHandler {
     fn update(&mut self);
-    fn draw(&self, canvas: &mut Canvas<Window>);
+    fn draw(&mut self, canvas: &mut Canvas<Window>);
 }
 
 pub trait Renderer: EventHandler {
