@@ -5,11 +5,15 @@ struct RenderSys {}
 impl RenderSystem for RenderSys {
     fn update(
         &mut self,
-        manager: &mut EntityManager,
-        accessor: &mut EntityIdAccessor,
+        _manager: &mut EntityManager,
+        _accessor: &mut EntityIdAccessor,
         canvas: &mut sdl2::render::Canvas<sdl2::video::Window>,
     ) {
-        println!("Render");
+        let i = (canvas.draw_color().r + 1) % 255;
+
+        canvas.set_draw_color(Color::RGB(i, 64, 255 - i));
+
+        canvas.clear();
     }
 }
 
