@@ -8,8 +8,8 @@ pub trait System {
 pub trait RenderSystem {
     fn update(
         &mut self,
-        manager: &mut EntityManager,
-        accessor: &mut EntityIdAccessor,
+        _manager: &mut EntityManager,
+        _accessor: &mut EntityIdAccessor,
         canvas: &mut Canvas<Window>,
     );
 }
