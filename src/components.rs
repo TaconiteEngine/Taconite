@@ -25,6 +25,15 @@ impl Default for Transform {
     }
 }
 
+impl Transform {
+    pub fn new(position: Vector3) -> Self {
+        Self {
+            position,
+            rotation: Vector3::splat(0.0),
+        }
+    }
+}
+
 impl Default for Shape {
     fn default() -> Self {
         Self {
