@@ -9,4 +9,5 @@ pub use components::*;
 pub use ecs::*;
 pub use engine::*;
 pub use new_year::*;
+pub use sdl2::pixels::Color;
 pub use types::*;
