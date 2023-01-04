@@ -1,10 +1,11 @@
+use log::info;
+
 use crate::{
     components::{Sprite, Transform},
+    ecs::*,
     renderer::*,
-    Shape,
+    Shape, TextureManager,
 };
-use crate::{ecs::*, TextureManager};
-use log::info;
 
 use sdl2::render::TextureCreator;
 use sdl2::video::WindowContext;
