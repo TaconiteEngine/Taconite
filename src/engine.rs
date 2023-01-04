@@ -11,15 +11,15 @@ use sdl2::render::TextureCreator;
 use sdl2::video::WindowContext;
 use sdl2::{render::Canvas, video::Window};
 
-pub struct Taconite {
+pub struct Taconite<'a> {
     world: World,
     texture_creator: Option<TextureCreator<WindowContext>>,
-    texture_manager: TextureManager,
+    texture_manager: TextureManager<'a>,
 }
 
-impl Renderer for Taconite {}
+impl Renderer for Taconite<'_> {}
 
-impl EventHandler for Taconite {
+impl EventHandler for Taconite<'_> {
     fn update(&mut self) {
         self.world.update();
     }
@@ -33,7 +33,7 @@ impl EventHandler for Taconite {
     }
 }
 
-impl Default for Taconite {
+impl Default for Taconite<'_> {
     fn default() -> Self {
         let mut taconite = Self {
             world: World::default(),
@@ -51,7 +51,7 @@ impl Default for Taconite {
     }
 }
 
-impl Taconite {
+impl Taconite<'_> {
     pub fn create_entity(&mut self) -> usize {
         self.world.create_entity()
     }
