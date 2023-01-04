@@ -1,9 +1,9 @@
-use crate::ecs::*;
 use crate::{
     components::{Sprite, Transform},
     renderer::*,
     Shape,
 };
+use crate::{ecs::*, TextureManager};
 use log::info;
 
 use sdl2::render::TextureCreator;
@@ -13,6 +13,7 @@ use sdl2::{render::Canvas, video::Window};
 pub struct Taconite {
     world: World,
     texture_creator: Option<TextureCreator<WindowContext>>,
+    texture_manager: TextureManager,
 }
 
 impl Renderer for Taconite {}
@@ -36,6 +37,7 @@ impl Default for Taconite {
         let mut taconite = Self {
             world: World::default(),
             texture_creator: None,
+            texture_manager: TextureManager::default(),
         };
 
         taconite.register_component::<Transform>();
