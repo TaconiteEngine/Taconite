@@ -61,36 +61,6 @@ fn main() {
         }),
     );
 
-    let entity = taconite.create_entity();
-    taconite.add_component_to_entity(
-        entity,
-        Transform::new(Vector3 {
-            x: 30.0,
-            y: 30.0,
-            z: 0.0,
-        }),
-    );
-
-    let entity = taconite.create_entity();
-    taconite.add_component_to_entity(
-        entity,
-        Transform::new(Vector3 {
-            x: 50.0,
-            y: 50.0,
-            z: 0.0,
-        }),
-    );
-
-    let entity = taconite.create_entity();
-    taconite.add_component_to_entity(
-        entity,
-        Transform::new(Vector3 {
-            x: 70.0,
-            y: 70.0,
-            z: 0.0,
-        }),
-    );
-
     taconite.add_system(MovementSystem {});
     taconite.add_render_system(ComponentRenderer {});
 
