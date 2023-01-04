@@ -4,6 +4,7 @@ mod engine;
 mod new_year;
 mod renderer;
 mod sdl_fronts;
+mod texture_manager;
 mod types;
 
 pub use components::*;
@@ -12,4 +13,5 @@ pub use engine::*;
 pub use new_year::*;
 pub use sdl2::pixels::Color;
 pub use sdl_fronts::*;
+pub use texture_manager::*;
 pub use types::*;
