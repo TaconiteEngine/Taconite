@@ -1,5 +1,4 @@
 use log::info;
-use sdl2::rect::Rect;
 use taconite::*;
 
 struct ComponentRenderer {}
