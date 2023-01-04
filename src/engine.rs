@@ -6,10 +6,13 @@ use crate::{
 };
 use log::info;
 
+use sdl2::render::TextureCreator;
+use sdl2::video::WindowContext;
 use sdl2::{render::Canvas, video::Window};
 
 pub struct Taconite {
     world: World,
+    texture_creator: Option<TextureCreator<WindowContext>>,
 }
 
 impl Renderer for Taconite {}
@@ -22,12 +25,17 @@ impl EventHandler for Taconite {
     fn draw(&mut self, canvas: &mut Canvas<Window>) {
         self.world.update_render(canvas);
     }
+
+    fn set_texture_creator(&mut self, context: Option<TextureCreator<WindowContext>>) {
+        self.texture_creator = context;
+    }
 }
 
 impl Default for Taconite {
     fn default() -> Self {
         let mut taconite = Self {
             world: World::default(),
+            texture_creator: None,
         };
 
         taconite.register_component::<Transform>();
