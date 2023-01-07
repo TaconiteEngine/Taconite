@@ -10,7 +10,7 @@ use sdl2::{
 pub trait EventHandler {
     fn update(&mut self);
     fn draw(&mut self, canvas: &mut Canvas<Window>);
-    fn set_texture_creator(&mut self, context: Option<TextureCreator<WindowContext>>);
+    fn set_texture_creator(&mut self, context: TextureCreator<WindowContext>);
 }
 
 pub trait Renderer: EventHandler {
@@ -33,9 +33,10 @@ pub trait Renderer: EventHandler {
             .build()
             .map_err(|e| e.to_string())?;
 
-        self.set_texture_creator(Some(canvas.texture_creator()));
+        self.set_texture_creator(canvas.texture_creator());
 
         canvas.set_draw_color(Color::RGB(46, 52, 64));
+
         canvas.clear();
         canvas.present();
 
@@ -52,9 +53,6 @@ pub trait Renderer: EventHandler {
                     _ => {}
                 }
             }
-
-            //canvas.set_draw_color(Color::RGB(46, 52, 64));
-            //canvas.clear();
 
             self.update();
             self.draw(&mut canvas);
