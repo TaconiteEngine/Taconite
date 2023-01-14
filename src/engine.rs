@@ -25,10 +25,6 @@ impl EventHandler for Taconite<'_> {
     fn draw(&mut self, canvas: &mut Canvas<Window>) {
         self.world.update_render(canvas);
     }
-
-    fn set_texture_creator(&mut self, texture_creator: TextureCreator<WindowContext>) {
-        self.texture_manager.unwrap().texture_creator = texture_creator;
-    }
 }
 
 impl Default for Taconite<'_> {
