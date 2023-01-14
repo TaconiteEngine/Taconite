@@ -12,7 +12,7 @@ use sdl2::{render::Canvas, video::Window};
 
 pub struct Taconite<'a> {
     world: World,
-    texture_manager: Option<TextureManager<'a>>,
+    pub texture_manager: Option<TextureManager<'a>>,
 }
 
 impl Renderer for Taconite<'_> {}
