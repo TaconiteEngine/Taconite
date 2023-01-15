@@ -9,12 +9,12 @@ use crate::Shape;
 
 use sdl2::{render::Canvas, video::Window};
 
-pub struct Taconite<'a> {
+pub struct Taconite {
     world: World,
     renderer: Option<Renderer>,
 }
 
-impl Default for Taconite<'_> {
+impl Default for Taconite {
     fn default() -> Self {
         let mut taconite = Self {
             world: World::default(),
@@ -31,7 +31,7 @@ impl Default for Taconite<'_> {
     }
 }
 
-impl Taconite<'_> {
+impl Taconite {
     pub fn create_entity(&mut self) -> usize {
         self.world.create_entity()
     }
@@ -69,6 +69,8 @@ impl Taconite<'_> {
     }
 
     pub fn start(&mut self) {
-        self.start_window().expect("Failed to start the window.");
+        self.renderer
+            .start_window()
+            .expect("Failed to start the window.");
     }
 }
