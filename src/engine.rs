@@ -3,9 +3,9 @@ use log::info;
 use std::sync::{Arc, Mutex};
 
 use crate::components::{Sprite, Transform};
-use crate::ecs::*;
 use crate::renderer::*;
 use crate::Shape;
+use crate::{ecs::*, WindowConfig};
 
 pub struct Taconite {
     world: Arc<Mutex<World>>,
@@ -67,13 +67,13 @@ impl Taconite {
         self.world.lock().unwrap().update();
     }
 
-    pub fn start(&mut self) -> Result<(), String> {
+    pub fn start(&mut self, window_config: WindowConfig) -> Result<(), String> {
         self.renderer = Some(Renderer::new(self.world.clone()));
 
-        self.begin()
+        self.begin(window_config)
     }
 
-    fn begin(&mut self) -> Result<(), String> {
-        self.renderer.as_mut().unwrap().start_window()
+    fn begin(&mut self, window_config: WindowConfig) -> Result<(), String> {
+        self.renderer.as_mut().unwrap().start_window(window_config)
     }
 }
