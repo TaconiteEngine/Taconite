@@ -34,7 +34,6 @@ impl Renderer {
             .map_err(|e| e.to_string())?;
 
         canvas.set_draw_color(Color::RGB(46, 52, 64));
-
         canvas.clear();
         canvas.present();
 
@@ -52,8 +51,8 @@ impl Renderer {
                 }
             }
 
-            self.update();
-            self.draw(&mut canvas);
+            self.event_handler.update();
+            self.event_handler.draw(&mut canvas);
 
             canvas.present();
         }
