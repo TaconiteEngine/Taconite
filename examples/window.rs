@@ -5,5 +5,5 @@ fn main() {
 
     let mut taconite = Taconite::default();
 
-    taconite.start();
+    taconite.start().unwrap();
 }

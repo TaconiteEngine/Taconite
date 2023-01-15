@@ -46,21 +46,16 @@ impl System for MovementPositionSystem {
 fn main() {
     let mut taconite = Taconite::default();
 
-    taconite
-        .register_component::<Position>()
-        .register_component::<Velocity>();
+    taconite.register_component::<Position>();
+    taconite.register_component::<Velocity>();
 
     let entity = taconite.create_entity();
 
-    taconite
-        .add_component_to_entity(entity, Position { x: 0.0, y: 0.0 })
-        .add_component_to_entity(entity, Velocity { x: 0.01, y: 0.01 });
+    taconite.add_component_to_entity(entity, Position { x: 0.0, y: 0.0 });
+    taconite.add_component_to_entity(entity, Velocity { x: 0.01, y: 0.01 });
 
-    taconite
-        .add_system(PrintPositionSystem {})
-        .add_system(MovementPositionSystem {});
+    taconite.add_system(PrintPositionSystem {});
+    taconite.add_system(MovementPositionSystem {});
 
-    loop {
-        taconite.update();
-    }
+    taconite.start().unwrap();
 }

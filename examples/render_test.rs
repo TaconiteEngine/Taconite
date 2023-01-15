@@ -63,5 +63,5 @@ fn main() {
     taconite.add_system(MovementSystem {});
     taconite.add_render_system(ComponentRenderer {});
 
-    taconite.start();
+    taconite.start().unwrap();
 }
