@@ -7,10 +7,14 @@ pub struct EventHandler {
 }
 
 impl EventHandler {
-    fn update(&mut self) {
+    pub fn new(world: Arc<Mutex<World>>) -> EventHandler {
+        EventHandler { world }
+    }
+
+    pub fn update(&mut self) {
         self.world.lock().unwrap().update();
     }
-    fn draw(&mut self, canvas: &mut Canvas<Window>) {
+    pub fn draw(&mut self, canvas: &mut Canvas<Window>) {
         self.world.lock().unwrap().update_render(canvas);
     }
 }
