@@ -32,5 +32,5 @@ fn main() {
 
     taconite.add_system(PrintTransformSystem {});
 
-    taconite.start();
+    taconite.start().unwrap();
 }
