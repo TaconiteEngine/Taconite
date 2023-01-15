@@ -1,14 +1,20 @@
-use sdl2::{
-    event::Event,
-    image::InitFlag,
-    keyboard::Keycode,
-    pixels::Color,
-    render::{Canvas, TextureCreator},
-    video::{Window, WindowContext},
-};
+use crate::EventHandler;
+use crate::World;
+use sdl2::{event::Event, image::InitFlag, keyboard::Keycode, pixels::Color};
+use std::sync::{Arc, Mutex};
 
-pub trait Renderer: EventHandler {
-    fn start_window(&mut self) -> Result<(), String> {
+pub struct Renderer {
+    event_handler: EventHandler,
+}
+
+impl Renderer {
+    pub fn new(world: Arc<Mutex<World>>) -> Renderer {
+        Renderer {
+            event_handler: EventHandler::new(world),
+        }
+    }
+
+    pub fn start_window(&mut self) -> Result<(), String> {
         let sdl = sdl2::init()?;
         let video = sdl.video()?;
 
