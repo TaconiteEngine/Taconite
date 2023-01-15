@@ -70,6 +70,8 @@ impl Taconite {
 
     pub fn start(&mut self) {
         self.renderer
+            .as_mut()
+            .unwrap()
             .start_window()
             .expect("Failed to start the window.");
     }
