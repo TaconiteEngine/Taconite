@@ -1,4 +1,4 @@
-use log::info;
+use log::{error, info};
 
 use std::sync::{Arc, Mutex};
 
@@ -67,10 +67,13 @@ impl Taconite {
         self.world.lock().unwrap().update();
     }
 
-    pub fn start(&mut self, window_config: WindowConfig) -> Result<(), String> {
+    pub fn start(&mut self, window_config: WindowConfig) {
         self.renderer = Some(Renderer::new(self.world.clone()));
 
-        self.begin(window_config)
+        match self.begin(window_config) {
+            Ok(v) => v,
+            Err(e) => error!("Error starting window: {e}"),
+        }
     }
 
     fn begin(&mut self, window_config: WindowConfig) -> Result<(), String> {
