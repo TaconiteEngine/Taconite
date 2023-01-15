@@ -1,5 +1,3 @@
-use std::borrow::Borrow;
-
 use taconite::*;
 
 struct Position {

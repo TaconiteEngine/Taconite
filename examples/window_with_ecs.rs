@@ -32,5 +32,10 @@ fn main() {
 
     taconite.add_system(PrintTransformSystem {});
 
-    taconite.start().unwrap();
+    taconite.start(WindowConfig {
+        name: "Window ECS Example",
+        vsync: true,
+        width: 800,
+        height: 600,
+    });
 }
