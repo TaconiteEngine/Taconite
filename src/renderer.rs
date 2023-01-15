@@ -28,21 +28,16 @@ impl Renderer {
             .build()
             .map_err(|e| e.to_string())?;
 
-        let mut canvas_builder = window.into_canvas();
+        let canvas_builder = window.into_canvas();
 
-        let canvas = if window_config.vsync {
+        let mut canvas = if window_config.vsync {
             canvas_builder
                 .present_vsync()
                 .build()
-                .map_err(|e| e.to_string())?;
+                .map_err(|e| e.to_string())?
         } else {
-            canvas_builder.build().map_err(|e| e.to_string())?;
+            canvas_builder.build().map_err(|e| e.to_string())?
         };
-
-        let canvas = canvas_builder
-            .present_vsync()
-            .build()
-            .map_err(|e| e.to_string())?;
 
         canvas.set_draw_color(Color::RGB(46, 52, 64));
         canvas.clear();
