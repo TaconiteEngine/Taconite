@@ -14,13 +14,11 @@ pub struct Taconite<'a> {
     renderer: Option<Renderer>,
 }
 
-impl Renderer for Taconite<'_> {}
-
 impl Default for Taconite<'_> {
     fn default() -> Self {
         let mut taconite = Self {
             world: World::default(),
-            texture_manager: None,
+            renderer: None,
         };
 
         taconite.register_component::<Transform>();
