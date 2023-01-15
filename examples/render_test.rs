@@ -63,5 +63,10 @@ fn main() {
     taconite.add_system(MovementSystem {});
     taconite.add_render_system(ComponentRenderer {});
 
-    taconite.start().unwrap();
+    taconite.start(WindowConfig {
+        name: "Render Test Example",
+        vsync: true,
+        width: 800,
+        height: 600,
+    });
 }

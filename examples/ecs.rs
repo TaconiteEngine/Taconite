@@ -57,5 +57,10 @@ fn main() {
     taconite.add_system(PrintPositionSystem {});
     taconite.add_system(MovementPositionSystem {});
 
-    taconite.start().unwrap();
+    taconite.start(WindowConfig {
+        name: "ECS Example",
+        vsync: true,
+        width: 800,
+        height: 600,
+    });
 }
