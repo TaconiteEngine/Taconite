@@ -18,8 +18,6 @@ name = "taconite"
 path = "src/lib.rs"
 
 [profile.release]
+strip = true
 lto = true
 codegen-units = 1
-
-[dev-dependencies]
-env_logger = "0.10.0"
