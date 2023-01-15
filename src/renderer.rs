@@ -1,4 +1,5 @@
 use crate::EventHandler;
+use crate::WindowConfig;
 use crate::World;
 use sdl2::{event::Event, image::InitFlag, keyboard::Keycode, pixels::Color};
 use std::sync::{Arc, Mutex};
@@ -14,7 +15,7 @@ impl Renderer {
         }
     }
 
-    pub fn start_window(&mut self) -> Result<(), String> {
+    pub fn start_window(&mut self, window_config: WindowConfig) -> Result<(), String> {
         let sdl = sdl2::init()?;
         let video = sdl.video()?;
 
@@ -27,8 +28,18 @@ impl Renderer {
             .build()
             .map_err(|e| e.to_string())?;
 
-        let mut canvas = window
-            .into_canvas()
+        let mut canvas_builder = window.into_canvas();
+
+        let canvas = if window_config.vsync {
+            canvas_builder
+                .present_vsync()
+                .build()
+                .map_err(|e| e.to_string())?;
+        } else {
+            canvas_builder.build().map_err(|e| e.to_string())?;
+        };
+
+        let canvas = canvas_builder
             .present_vsync()
             .build()
             .map_err(|e| e.to_string())?;
