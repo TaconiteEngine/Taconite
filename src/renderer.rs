@@ -22,7 +22,7 @@ impl Renderer {
         let _image_ctx = sdl2::image::init(InitFlag::PNG);
 
         let window = video
-            .window("Temporary window", 800, 600)
+            .window(&window_config.name, 800, 600)
             .position_centered()
             .opengl()
             .build()
