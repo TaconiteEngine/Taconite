@@ -7,11 +7,6 @@ use sdl2::{
     video::{Window, WindowContext},
 };
 
-pub trait EventHandler {
-    fn update(&mut self);
-    fn draw(&mut self, canvas: &mut Canvas<Window>);
-}
-
 pub trait Renderer: EventHandler {
     fn start_window(&mut self) -> Result<(), String> {
         let sdl = sdl2::init()?;
