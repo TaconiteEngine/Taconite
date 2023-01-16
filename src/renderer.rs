@@ -42,6 +42,8 @@ impl<'a> Renderer<'a> {
             canvas_builder.build().map_err(|e| e.to_string())?
         };
 
+        self.texture_manager = Some(TextureManager::new(canvas.texture_creator()));
+
         canvas.set_draw_color(Color::RGB(46, 52, 64));
         canvas.clear();
         canvas.present();
