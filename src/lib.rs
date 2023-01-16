@@ -7,6 +7,7 @@ mod new_year;
 mod renderer;
 mod sdl_fronts;
 mod texture_manager;
+mod thread_pool;
 mod window_config;
 
 pub use components::*;
