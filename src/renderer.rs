@@ -1,17 +1,20 @@
 use crate::EventHandler;
+use crate::TextureManager;
 use crate::WindowConfig;
 use crate::World;
 use sdl2::{event::Event, image::InitFlag, keyboard::Keycode, pixels::Color};
 use std::sync::{Arc, Mutex};
 
-pub struct Renderer {
+pub struct Renderer<'a> {
     event_handler: EventHandler,
+    texture_manager: Option<TextureManager<'a>>,
 }
 
-impl Renderer {
-    pub fn new(world: Arc<Mutex<World>>) -> Renderer {
+impl<'a> Renderer<'a> {
+    pub fn new(world: Arc<Mutex<World>>) -> Renderer<'a> {
         Renderer {
             event_handler: EventHandler::new(world),
+            texture_manager: None,
         }
     }
 
