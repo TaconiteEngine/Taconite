@@ -7,12 +7,12 @@ use crate::renderer::*;
 use crate::Shape;
 use crate::{ecs::*, WindowConfig};
 
-pub struct Taconite {
+pub struct Taconite<'a> {
     world: Arc<Mutex<World>>,
-    renderer: Option<Renderer>,
+    renderer: Option<Renderer<'a>>,
 }
 
-impl Default for Taconite {
+impl Default for Taconite<'_> {
     fn default() -> Self {
         let world = Arc::new(Mutex::new(World::default()));
 
@@ -31,7 +31,7 @@ impl Default for Taconite {
     }
 }
 
-impl Taconite {
+impl Taconite<'_> {
     pub fn create_entity(&mut self) -> usize {
         self.world.lock().unwrap().create_entity()
     }
