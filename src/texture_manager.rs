@@ -13,6 +13,13 @@ pub struct TextureManager<'a> {
 }
 
 impl<'a> TextureManager<'a> {
+    pub fn new(texture_creator: TextureCreator<WindowContext>) -> TextureManager<'a> {
+        TextureManager {
+            texture_creator,
+            cache: HashMap::new(),
+        }
+    }
+
     pub fn load(&'a mut self, path: &str) -> Result<Rc<Texture>, String> {
         self.cache.get(path).cloned().map_or_else(
             || {
