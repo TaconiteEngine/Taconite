@@ -31,16 +31,11 @@ impl<'a> Renderer<'a> {
             .build()
             .map_err(|e| e.to_string())?;
 
-        let canvas_builder = window.into_canvas();
-
-        let mut canvas = if window_config.vsync {
-            canvas_builder
-                .present_vsync()
-                .build()
-                .map_err(|e| e.to_string())?
-        } else {
-            canvas_builder.build().map_err(|e| e.to_string())?
-        };
+        let mut canvas = match window_config.vsync {
+            true => window.into_canvas().present_vsync().build(),
+            false => window.into_canvas().build(),
+        }
+        .map_err(|e| e.to_string())?;
 
         self.texture_manager = Some(TextureManager::new(canvas.texture_creator()));
 
