@@ -35,7 +35,7 @@ impl Taconite<'_> {
     }
 
     pub fn remove_entity(&mut self, entity_id: usize) {
-        self.world.lock().unwrap().remove_entity(entity_id);
+        Mutex::lock(&self.world).unwrap().remove_entity(entity_id);
     }
 
     pub fn register_component<T: 'static + Component>(&mut self) {
