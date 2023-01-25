@@ -14,10 +14,8 @@ pub struct Taconite<'a> {
 
 impl Default for Taconite<'_> {
     fn default() -> Self {
-        let world = Arc::new(Mutex::new(World::default()));
-
         let mut taconite = Self {
-            world: world.clone(),
+            world: Arc::new(Mutex::new(World::default())),
             renderer: None,
         };
 
