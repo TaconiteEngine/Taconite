@@ -2,16 +2,19 @@ use crate::EventHandler;
 use crate::TextureManager;
 use crate::WindowConfig;
 use crate::World;
+use log::info;
 use sdl2::{event::Event, image::InitFlag, keyboard::Keycode, pixels::Color};
 use std::sync::{Arc, Mutex};
 
 pub struct Renderer<'a> {
     event_handler: EventHandler,
-    texture_manager: Option<TextureManager<'a>>,
+    pub texture_manager: Option<TextureManager<'a>>,
 }
 
 impl<'a> Renderer<'a> {
     pub fn new(world: Arc<Mutex<World>>) -> Renderer<'a> {
+        info!("Creating a renderer");
+
         Renderer {
             event_handler: EventHandler::new(world),
             texture_manager: None,
@@ -19,13 +22,15 @@ impl<'a> Renderer<'a> {
     }
 
     pub fn start_window(&mut self, window_config: WindowConfig) -> Result<(), String> {
+        info!("Starting a window");
+
         let sdl = sdl2::init()?;
         let video = sdl.video()?;
 
         let _image_ctx = sdl2::image::init(InitFlag::PNG);
 
         let window = video
-            .window(&window_config.name, 800, 600)
+            .window(window_config.name, 800, 600)
             .position_centered()
             .opengl()
             .build()
