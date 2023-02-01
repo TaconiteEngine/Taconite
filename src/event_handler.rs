@@ -1,5 +1,5 @@
 use crate::World;
-use sdl2::{render::Canvas, video::Window};
+use sdl2::{event::Event, keyboard::Keycode, render::Canvas, video::Window};
 use std::sync::{Arc, Mutex};
 
 pub struct EventHandler {
@@ -16,5 +16,16 @@ impl EventHandler {
     }
     pub fn draw(&mut self, canvas: &mut Canvas<Window>) {
         self.world.lock().unwrap().update_render(canvas);
+    }
+
+    pub fn event(&self, event: Event) -> bool {
+        match event {
+            Event::Quit { .. }
+            | Event::KeyDown {
+                keycode: Some(Keycode::Escape),
+                ..
+            } => true,
+            _ => false,
+        }
     }
 }
