@@ -8,7 +8,7 @@ use std::sync::{Arc, Mutex};
 
 pub struct Renderer<'a> {
     event_handler: EventHandler,
-    pub texture_manager: Option<TextureManager<'a>>,
+    texture_manager: Option<TextureManager<'a>>,
 }
 
 impl<'a> Renderer<'a> {
@@ -52,14 +52,9 @@ impl<'a> Renderer<'a> {
 
         'running: loop {
             for event in event_pump.poll_iter() {
-                match event {
-                    Event::Quit { .. }
-                    | Event::KeyDown {
-                        keycode: Some(Keycode::Escape),
-                        ..
-                    } => break 'running,
-                    _ => {}
-                }
+                if self.event_handler.event(event) {
+                    break 'running;
+                };
             }
 
             self.event_handler.update();
