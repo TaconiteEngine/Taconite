@@ -1,13 +1,13 @@
-mod world;
-mod system;
-mod entity;
-mod entity_manager;
 mod component;
 mod component_manager;
+mod entity;
+mod entity_manager;
+mod system;
+mod world;
 
-pub use world::*;
-pub use system::*;
-pub use entity::*;
-pub use entity_manager::*;
 pub use component::*;
 pub use component_manager::*;
+pub use entity::*;
+pub use entity_manager::*;
+pub use system::*;
+pub use world::*;
