@@ -16,7 +16,7 @@ impl<'a> Renderer<'a> {
         info!("Creating a renderer");
 
         Renderer {
-            event_handler: EventHandler::new(world),
+            event_handler: EventHandler::new(world, None),
             texture_manager: None,
         }
     }
@@ -48,13 +48,13 @@ impl<'a> Renderer<'a> {
         canvas.clear();
         canvas.present();
 
-        let mut event_pump = sdl.event_pump()?;
+        // let mut event_pump = sdl.event_pump()?;
+
+        self.event_handler.event_pump = Some(sdl.event_pump()?);
 
         'running: loop {
-            for event in event_pump.poll_iter() {
-                if self.event_handler.event(event) {
-                    break 'running;
-                };
+            if self.event_handler.handle_events() {
+                break 'running;
             }
 
             self.event_handler.update();
