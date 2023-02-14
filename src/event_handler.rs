@@ -21,13 +21,13 @@ impl EventHandler {
     }
 
     pub(crate) fn event(&mut self, event: Event) -> bool {
-        match event {
-            Event::Quit { .. } => true,
-            Event::KeyDown {
-                keycode: Some(Keycode::Escape),
-                ..
-            } => true,
-            _ => false,
-        }
+        matches!(
+            event,
+            Event::Quit { .. }
+                | Event::KeyDown {
+                    keycode: Some(Keycode::Escape),
+                    ..
+                }
+        )
     }
 }
