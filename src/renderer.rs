@@ -3,11 +3,11 @@ use crate::TextureManager;
 use crate::WindowConfig;
 use crate::World;
 use log::info;
-use sdl2::{event::Event, image::InitFlag, keyboard::Keycode, pixels::Color};
+use sdl2::{image::InitFlag, pixels::Color};
 use std::sync::{Arc, Mutex};
 
 pub struct Renderer<'a> {
-    event_handler: EventHandler,
+    pub(crate) event_handler: EventHandler,
     texture_manager: Option<TextureManager<'a>>,
 }
 
