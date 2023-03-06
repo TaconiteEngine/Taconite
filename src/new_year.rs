@@ -1,3 +1,4 @@
+/// A secret struct
 pub struct NewYear {}
 
 impl NewYear {
