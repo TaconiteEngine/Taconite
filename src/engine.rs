@@ -1,10 +1,9 @@
 use log::{error, info};
 use std::sync::{Arc, Mutex};
 
-use crate::components::{Sprite, Transform};
 use crate::renderer::*;
-use crate::Shape;
 use crate::{ecs::*, WindowConfig};
+use crate::{Shape, Sprite, Transform};
 
 /// The main struct that holds the engine.
 pub struct Taconite<'a> {
