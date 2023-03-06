@@ -7,6 +7,8 @@ use sdl2::{
     video::WindowContext,
 };
 
+/// A struct to enhouse textures.
+/// This struct can load and keep textures with caching.
 pub struct TextureManager<'a> {
     texture_creator: TextureCreator<WindowContext>,
     cache: HashMap<String, Rc<Texture<'a>>>,
