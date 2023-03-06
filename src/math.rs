@@ -1,8 +1,15 @@
+/// A struct that holds a:
+///     * x coordinate
+///     * y coordinate
 pub struct Vector2 {
     pub x: f32,
     pub y: f32,
 }
 
+/// A struct that holds a:
+///     * x coordinate
+///     * y coordinate
+///     * z coordinate
 pub struct Vector3 {
     pub x: f32,
     pub y: f32,
