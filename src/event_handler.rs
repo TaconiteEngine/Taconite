@@ -1,16 +1,22 @@
-use crate::World;
+use crate::{input_handler::InputHandler, World};
 use log::info;
 use sdl2::{event::Event, keyboard::Keycode, render::Canvas, video::Window, EventPump};
 use std::sync::{Arc, Mutex};
 
+#[allow(dead_code)]
 pub struct EventHandler {
     world: Arc<Mutex<World>>,
     pub(crate) event_pump: Option<EventPump>,
+    pub(crate) input_handler: InputHandler,
 }
 
 impl EventHandler {
     pub fn new(world: Arc<Mutex<World>>, event_pump: Option<EventPump>) -> EventHandler {
-        EventHandler { world, event_pump }
+        EventHandler {
+            world,
+            event_pump,
+            input_handler: InputHandler::default(),
+        }
     }
 
     pub fn update(&mut self) {
@@ -23,14 +29,16 @@ impl EventHandler {
 
     pub(crate) fn handle_events(&mut self) -> bool {
         for event in self.event_pump.as_mut().unwrap().poll_iter() {
-            return match event {
-                Event::Quit { .. } => true,
-                Event::KeyDown {
-                    keycode: Some(Keycode::Escape),
-                    ..
-                } => true,
-                _ => false,
-            };
+            info!("{event:?}");
+
+            return matches!(
+                event,
+                Event::Quit { .. }
+                    | Event::KeyDown {
+                        keycode: Some(Keycode::Escape),
+                        ..
+                    }
+            );
         }
 
         false
