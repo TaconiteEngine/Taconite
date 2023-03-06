@@ -2,6 +2,7 @@ mod components;
 pub mod ecs;
 mod engine;
 mod event_handler;
+mod input_handler;
 mod math;
 mod new_year;
 mod renderer;
