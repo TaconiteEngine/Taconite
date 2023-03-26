@@ -24,4 +24,4 @@ pub use texture_manager::*;
 pub use window_config::*;
 
 // Re-export
-pub use sdl2::pixels::Color;
+// pub use sdl2::pixels::Color;

@@ -3,15 +3,15 @@ use std::sync::{Arc, Mutex};
 
 use crate::renderer::*;
 use crate::{ecs::*, WindowConfig};
-use crate::{Shape, Sprite, Transform};
+use crate::{Shape, /*Sprite, */ Transform};
 
 /// The main struct that holds the engine.
-pub struct Taconite<'a> {
+pub struct Taconite {
     world: Arc<Mutex<World>>,
-    renderer: Option<Renderer<'a>>,
+    renderer: Option<Renderer>,
 }
 
-impl Default for Taconite<'_> {
+impl Default for Taconite {
     fn default() -> Self {
         let mut taconite = Self {
             world: Arc::new(Mutex::new(World::default())),
@@ -19,7 +19,7 @@ impl Default for Taconite<'_> {
         };
 
         taconite.register_component::<Transform>();
-        taconite.register_component::<Sprite>();
+        // taconite.register_component::<Sprite>();
         taconite.register_component::<Shape>();
 
         info!("Created a Taconite instance.");
@@ -28,7 +28,7 @@ impl Default for Taconite<'_> {
     }
 }
 
-impl Taconite<'_> {
+impl Taconite {
     /// Create a new entity.
     /// This will create a new entity with the ECS system and return it's ID (a usize).
     pub fn create_entity(&mut self) -> usize {
