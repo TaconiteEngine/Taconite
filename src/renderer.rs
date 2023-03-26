@@ -18,7 +18,7 @@ impl Renderer {
         info!("Creating a renderer");
 
         Renderer {
-            event_handler: EventHandler::new(world),
+            event_handler: EventHandler::new(world, None),
             texture_manager: None,
         }
     }
@@ -63,8 +63,8 @@ impl Renderer {
                 .expect("Failed to creaate a new program.");
 
             // Load the shaders.
-            let vertex_shader_source = include_str!("tri.vert");
-            let fragment_shader_source = include_str!("col.frag");
+            let vertex_shader_source = include_str!("shaders/tri.vert");
+            let fragment_shader_source = include_str!("shaders/col.frag");
 
             info!("Loaded shaders.");
 
