@@ -24,7 +24,7 @@ impl Renderer {
     }
 
     pub fn start_window(&mut self, window_config: WindowConfig) -> Result<(), String> {
-        // Can't call within safe rust unfortuantely.
+        // Can't call within safe rust unfortunately.
         unsafe {
             let (gl, shader_version, window, event_loop) = {
                 let event_loop = glutin::event_loop::EventLoop::new();

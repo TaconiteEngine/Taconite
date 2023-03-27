@@ -1,22 +1,24 @@
-// TODO: Upgrade
+// TODO: Upgrade to OpenGL
 
 use crate::{input_handler::InputHandler, World};
-use log::info;
-// use sdl2::{event::Event, keyboard::Keycode, render::Canvas, video::Window, EventPump};
+use glutin::{
+    event::Event,
+    event_loop::{ControlFlow, EventLoop},
+};
+use log::{info, warn};
 use std::sync::{Arc, Mutex};
 
-#[allow(dead_code)]
 pub struct EventHandler {
     world: Arc<Mutex<World>>,
-    // pub(crate) event_pump: Option<EventPump>,
+    pub(crate) event_loop: Option<EventLoop<()>>,
     pub(crate) input_handler: InputHandler,
 }
 
 impl EventHandler {
-    pub fn new(world: Arc<Mutex<World>>) -> EventHandler {
+    pub fn new(world: Arc<Mutex<World>>, event_loop: Option<EventLoop<()>>) -> EventHandler {
         EventHandler {
             world,
-            // event_pump,
+            event_loop,
             input_handler: InputHandler::default(),
         }
     }
@@ -29,22 +31,20 @@ impl EventHandler {
         self.world.lock().unwrap().update_render(/*canvas*/);
     }
 
-    pub(crate) fn handle_events(&mut self) -> bool {
-        // for event in self.event_pump.as_mut().unwrap().poll_iter() {
-        //     info!("{event:?}");
+    pub(crate) fn run(self) -> bool {
+        self.event_loop.unwrap().run(move |event, _, control_flow| {
+            *control_flow = ControlFlow::Wait;
 
-        //     return matches!(
-        //         event,
-        //         Event::Quit { .. }
-        //             | Event::KeyDown {
-        //                 keycode: Some(Keycode::Escape),
-        //                 ..
-        //             }
-        //     );
-        // }
-
-        // false
-        // }
+            match event {
+                Event::LoopDestroyed => {
+                    info!("Closing the window.");
+                    return;
+                }
+                _ => {
+                    warn!("Unhandled event");
+                }
+            }
+        });
 
         true
     }
