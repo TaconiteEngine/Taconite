@@ -7,4 +7,4 @@ Welcome to the OpenGL branch. This branch is currently not available for proper 
 ## Current technology
 
 * ECS system, soon to be completely custom.
-* SDL2 (Currently switch to OpenGL, see [OpenGL branch](https://git.rustbytes.uk/RustBytes/taconite/tree/opengl)).
+* OpenGL (Did you mean to be in the main branch?)
