@@ -6,7 +6,7 @@ pub(crate) struct InputHandler {
 }
 
 #[allow(dead_code)] // TODO: Will be gone soon
-#[derive(PartialEq)]
+#[derive(PartialEq, Debug)]
 pub enum Key {
     W,
     A,
