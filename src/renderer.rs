@@ -114,6 +114,10 @@ impl Renderer {
 
             gl.use_program(Some(program));
             gl.clear_color(0.0, 0.0, 0.0, 1.0);
+
+            self.event_handler.event_loop = Some(event_loop);
+
+            self.event_handler.run(gl, window);
         }
 
         Ok(())
