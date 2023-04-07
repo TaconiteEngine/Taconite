@@ -14,6 +14,12 @@ pub enum Key {
     D,
 }
 
+impl std::fmt::Display for Key {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{self:?}")
+    }
+}
+
 #[allow(dead_code)] // TODO: Will be gone soon
 impl InputHandler {
     pub(crate) fn add_key(&mut self, key_variant: Key) {
