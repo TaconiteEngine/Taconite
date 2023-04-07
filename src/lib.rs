@@ -1,5 +1,3 @@
-#![feature(drain_filter)]
-
 mod components;
 pub mod ecs;
 mod engine;
