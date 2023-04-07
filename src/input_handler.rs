@@ -5,7 +5,6 @@ pub(crate) struct InputHandler {
     keys: Vec<Key>,
 }
 
-#[allow(dead_code)] // TODO: Will be gone soon
 #[derive(PartialEq, Debug)]
 pub enum Key {
     W,
@@ -20,7 +19,6 @@ impl std::fmt::Display for Key {
     }
 }
 
-#[allow(dead_code)] // TODO: Will be gone soon
 impl InputHandler {
     pub(crate) fn add_key(&mut self, key_variant: Key) {
         if !self.keys.contains(&key_variant) {
