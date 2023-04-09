@@ -5,7 +5,6 @@ use crate::World;
 use glow::HasContext;
 use glow::NativeShader;
 use log::info;
-// use sdl2::{image::InitFlag, pixels::Color};
 use std::sync::{Arc, Mutex};
 
 pub struct Renderer {
@@ -18,7 +17,7 @@ impl Renderer {
         info!("Creating a renderer");
 
         Renderer {
-            event_handler: EventHandler::new(world, None),
+            event_handler: EventHandler::new(world),
             texture_manager: None,
         }
     }
@@ -115,9 +114,7 @@ impl Renderer {
             gl.use_program(Some(program));
             gl.clear_color(0.0, 0.0, 0.0, 1.0);
 
-            self.event_handler.event_loop = Some(event_loop);
-
-            self.event_handler.run(gl, window);
+            self.event_handler.run(gl, window, event_loop);
         }
 
         Ok(())
