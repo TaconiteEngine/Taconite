@@ -44,6 +44,8 @@ impl System for MovementPositionSystem {
 }
 
 fn main() {
+    pretty_env_logger::init();
+
     let mut taconite = Taconite::default();
 
     taconite.register_component::<Position>();

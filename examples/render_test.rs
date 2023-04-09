@@ -46,7 +46,7 @@ impl RenderSystem for ComponentRenderer {
 }
 
 fn main() {
-    env_logger::init();
+    pretty_env_logger::init();
 
     let mut taconite = Taconite::default();
 
