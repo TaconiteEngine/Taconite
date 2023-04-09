@@ -20,6 +20,3 @@ pub use new_year::*;
 pub use sdl_fronts::*;
 pub use texture_manager::*;
 pub use window_config::*;
-
-// Re-export
-// pub use sdl2::pixels::Color;
