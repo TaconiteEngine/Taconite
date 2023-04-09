@@ -1,32 +1,25 @@
 // TODO: Upgrade to OpenGL
 
-use crate::renderer::Renderer;
 use crate::{input_handler::InputHandler, World};
 use glow::Context;
 use glow::HasContext;
-use glow::NativeVertexArray;
-use glow::Program;
 use glutin::event::WindowEvent;
 use glutin::{
     event::Event,
     event_loop::{ControlFlow, EventLoop},
-    window::Window,
     ContextWrapper, PossiblyCurrent,
 };
-use log::{info, warn};
 use std::sync::{Arc, Mutex};
 
 pub struct EventHandler {
     world: Arc<Mutex<World>>,
-    pub(crate) event_loop: Option<EventLoop<()>>,
     pub(crate) input_handler: InputHandler,
 }
 
 impl EventHandler {
-    pub fn new(world: Arc<Mutex<World>>, event_loop: Option<EventLoop<()>>) -> EventHandler {
+    pub fn new(world: Arc<Mutex<World>>) -> EventHandler {
         EventHandler {
             world,
-            event_loop,
             input_handler: InputHandler::default(),
         }
     }
@@ -40,11 +33,12 @@ impl EventHandler {
     }
 
     pub(crate) unsafe fn run(
-        self,
+        &self,
         gl: Context,
         window: ContextWrapper<PossiblyCurrent, glutin::window::Window>,
+        event_loop: EventLoop<()>,
     ) {
-        self.event_loop.unwrap().run(move |event, _, control_flow| {
+        event_loop.run(move |event, _, control_flow| {
             *control_flow = ControlFlow::Wait;
             match event {
                 Event::LoopDestroyed => {
