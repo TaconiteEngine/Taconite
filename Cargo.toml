@@ -9,11 +9,13 @@ repository = "https://git.rustbytes.uk/RustBytes/Taconite"
 description = "A simple game engine wrote in rust for simplicity, speed and memory safety."
 
 [dependencies]
-env_logger = "0.10.0"
 glow = "0.12.1"
 glutin = "0.28"
 log = "0.4.17"
 num_cpus = "1.15.0"
+
+[dev-dependencies]
+pretty_env_logger = "0.4.0"
 
 [lib]
 name = "taconite"
