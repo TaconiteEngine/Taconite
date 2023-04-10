@@ -43,8 +43,6 @@ impl EventHandler {
             match event {
                 Event::LoopDestroyed => {
                     // Close the loop.
-
-                    return;
                 }
                 Event::MainEventsCleared => {
                     // Redraw the window.
@@ -61,6 +59,13 @@ impl EventHandler {
                 Event::WindowEvent { ref event, .. } => match event {
                     WindowEvent::Resized(physical_size) => {
                         // Resize the window
+
+                        gl.viewport(
+                            0,
+                            0,
+                            window.window().inner_size().width as i32,
+                            window.window().inner_size().height as i32,
+                        );
 
                         window.resize(*physical_size);
                     }
