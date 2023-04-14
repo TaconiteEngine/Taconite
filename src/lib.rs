@@ -15,6 +15,7 @@ pub use components::*;
 pub use ecs::*;
 pub use engine::*;
 pub use event_handler::*;
+pub use input_handler::*;
 pub use math::*;
 pub use new_year::*;
 pub use sdl_fronts::*;
