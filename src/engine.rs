@@ -1,6 +1,7 @@
 use log::{error, info};
 use std::sync::{Arc, Mutex};
 
+use crate::input_handler::Key;
 use crate::renderer::*;
 use crate::{ecs::*, WindowConfig};
 use crate::{Shape, Sprite, Transform};
@@ -69,6 +70,15 @@ impl Taconite<'_> {
         Mutex::lock(&self.world)
             .unwrap()
             .add_component_to_entity(entity_id, component);
+    }
+
+    pub fn is_key_down(&self, key_variant: Key) -> bool {
+        self.renderer
+            .as_ref()
+            .unwrap()
+            .event_handler
+            .input_handler
+            .is_key_down(key_variant)
     }
 
     /// Start the window and begin rendering and updating.
