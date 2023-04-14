@@ -26,7 +26,7 @@ impl InputHandler {
 
     pub(crate) fn remove_key(&mut self, key_variant: Key) {
         if !self.keys.contains(&key_variant) {
-            self.keys.drain_filter(|x| x == &key_variant);
+            self.keys.retain(|k| k != &key_variant);
         } else {
             warn!("Key not pressed");
         }
