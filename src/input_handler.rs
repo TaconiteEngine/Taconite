@@ -1,7 +1,7 @@
 use log::warn;
 
 #[derive(Default)]
-pub(crate) struct InputHandler {
+pub struct InputHandler {
     keys: Vec<Key>,
 }
 
