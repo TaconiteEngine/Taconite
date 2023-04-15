@@ -23,7 +23,7 @@ impl EventHandler {
     }
 
     pub fn update(&mut self) {
-        self.world.lock().unwrap().update();
+        self.world.lock().unwrap().update(&self.input_handler);
     }
 
     pub fn draw(&mut self, canvas: &mut Canvas<Window>) {
