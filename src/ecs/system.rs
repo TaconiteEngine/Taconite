@@ -1,8 +1,15 @@
+use crate::InputHandler;
+
 use super::entity_manager::{EntityIdAccessor, EntityManager};
 use sdl2::{render::Canvas, video::Window};
 
 pub trait System {
-    fn update(&mut self, manager: &mut EntityManager, accessor: &mut EntityIdAccessor);
+    fn update(
+        &mut self,
+        _manager: &mut EntityManager,
+        _accessor: &mut EntityIdAccessor,
+        _input_handler: &InputHandler,
+    );
 }
 
 pub trait RenderSystem {
