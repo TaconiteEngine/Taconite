@@ -9,7 +9,6 @@ repository = "https://git.rustbytes.uk/RustBytes/Taconite"
 description = "A simple game engine wrote in rust for simplicity, speed and memory safety."
 
 [dependencies]
-env_logger = "0.10.0"
 log = "0.4.17"
 num_cpus = "1.15.0"
 sdl2 = { version = "0.35.2", features = ["image", "gfx"] }
@@ -22,3 +21,6 @@ path = "src/lib.rs"
 strip = true
 lto = true
 codegen-units = 1
+
+[dev-dependencies]
+pretty_env_logger = "0.4.0"
