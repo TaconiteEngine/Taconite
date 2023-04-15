@@ -3,7 +3,12 @@ use taconite::*;
 struct PrintTransformSystem {}
 
 impl System for PrintTransformSystem {
-    fn update(&mut self, manager: &mut EntityManager, _accessor: &mut EntityIdAccessor) {
+    fn update(
+        &mut self,
+        manager: &mut EntityManager,
+        accessor: &mut EntityIdAccessor,
+        input_handler: &InputHandler,
+    ) {
         let transforms = manager.borrow_components::<Transform>().unwrap();
 
         for transform in transforms.iter() {
@@ -21,7 +26,7 @@ impl System for PrintTransformSystem {
 }
 
 fn main() {
-    env_logger::init();
+    pretty_env_logger::init();
 
     let mut taconite = Taconite::default();
 
