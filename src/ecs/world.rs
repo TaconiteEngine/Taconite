@@ -1,5 +1,7 @@
 use sdl2::{render::Canvas, video::Window};
 
+use crate::InputHandler;
+
 use super::{
     component::Component,
     entity_manager::{EntityIdAccessor, EntityManager},
@@ -48,9 +50,13 @@ impl World {
         self
     }
 
-    pub fn update(&mut self) {
+    pub fn update(&mut self, input_handler: &InputHandler) {
         for system in self.systems.iter_mut() {
-            system.update(&mut self.entity_manager, &mut self.entity_id_accessor);
+            system.update(
+                &mut self.entity_manager,
+                &mut self.entity_id_accessor,
+                input_handler,
+            );
             self.entity_manager.increment_frame();
         }
     }
