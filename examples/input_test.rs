@@ -2,23 +2,43 @@ use log::info;
 use taconite::*;
 
 struct ComponentRenderer {}
-
 struct MovementSystem {}
+
+const SPEED: f32 = 5.0;
 
 impl System for MovementSystem {
     fn update(
         &mut self,
         manager: &mut EntityManager,
-        accessor: &mut EntityIdAccessor,
+        _accessor: &mut EntityIdAccessor,
         input_handler: &InputHandler,
     ) {
+        let mut x_vel: f32 = 0.0;
+        let mut y_vel: f32 = 0.0;
+
+        if input_handler.is_key_down(Key::W) {
+            y_vel -= SPEED;
+        }
+
+        if input_handler.is_key_down(Key::A) {
+            x_vel -= SPEED;
+        }
+
+        if input_handler.is_key_down(Key::S) {
+            y_vel += SPEED;
+        }
+
+        if input_handler.is_key_down(Key::D) {
+            x_vel += SPEED;
+        }
+
         for transform in manager
             .borrow_components_mut::<Transform>()
             .unwrap()
             .iter_mut()
         {
-            transform.position.x += 1.;
-            transform.position.y += 1.;
+            transform.position.x += x_vel;
+            transform.position.y += y_vel;
         }
     }
 }
@@ -46,12 +66,14 @@ impl RenderSystem for ComponentRenderer {
                 .expect("Failed to draw to the canvas.");
         }
 
-        info!("Rendered frame.");
+        // info!("Rendered frame.");
     }
 }
 
 fn main() {
-    pretty_env_logger::init();
+    pretty_env_logger::formatted_builder()
+        .filter_level(log::LevelFilter::Info)
+        .init();
 
     let mut taconite = Taconite::default();
 

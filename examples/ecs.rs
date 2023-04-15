@@ -17,7 +17,12 @@ impl Component for Position {}
 impl Component for Velocity {}
 
 impl System for PrintPositionSystem {
-    fn update(&mut self, manager: &mut EntityManager, _accessor: &mut EntityIdAccessor) {
+    fn update(
+        &mut self,
+        manager: &mut EntityManager,
+        accessor: &mut EntityIdAccessor,
+        input_handler: &InputHandler,
+    ) {
         let positions = manager.borrow_components::<Position>().unwrap();
 
         for position in positions.iter() {
@@ -27,7 +32,12 @@ impl System for PrintPositionSystem {
 }
 
 impl System for MovementPositionSystem {
-    fn update(&mut self, manager: &mut EntityManager, accessor: &mut EntityIdAccessor) {
+    fn update(
+        &mut self,
+        manager: &mut EntityManager,
+        accessor: &mut EntityIdAccessor,
+        input_handler: &InputHandler,
+    ) {
         let entity_ids = accessor
             .borrow_ids_for_pair::<Velocity, Position>(manager)
             .unwrap();
