@@ -2,7 +2,6 @@ use crate::{
     input_handler::{InputHandler, Key},
     World,
 };
-use log::info;
 use sdl2::{event::Event, keyboard::Keycode, render::Canvas, video::Window, EventPump};
 use std::sync::{Arc, Mutex};
 
