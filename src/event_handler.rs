@@ -35,8 +35,6 @@ impl EventHandler {
         let mut window_should_close = false;
 
         for event in self.event_pump.as_mut().unwrap().poll_iter() {
-            info!("{event:?}");
-
             match event {
                 Event::Quit { .. }
                 | Event::KeyDown {
@@ -48,10 +46,7 @@ impl EventHandler {
                 Event::KeyDown {
                     keycode: Some(Keycode::W),
                     ..
-                } => {
-                    println!("W down");
-                    self.input_handler.add_key(Key::W)
-                }
+                } => self.input_handler.add_key(Key::W),
 
                 // A down.
                 Event::KeyDown {
@@ -59,7 +54,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.add_key(Key::A);
-                    println!("A down");
                 }
 
                 // S down.
@@ -68,7 +62,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.add_key(Key::S);
-                    println!("S down");
                 }
 
                 // D down.
@@ -77,7 +70,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.add_key(Key::D);
-                    println!("D down");
                 }
 
                 // W up.
@@ -86,7 +78,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.remove_key(Key::W);
-                    println!("W up");
                 }
 
                 // A up.
@@ -95,7 +86,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.remove_key(Key::A);
-                    println!("A up");
                 }
 
                 // S up.
@@ -104,7 +94,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.remove_key(Key::S);
-                    println!("S up");
                 }
 
                 // D up.
@@ -113,7 +102,6 @@ impl EventHandler {
                     ..
                 } => {
                     self.input_handler.remove_key(Key::D);
-                    println!("D up");
                 }
 
                 _ => {}
