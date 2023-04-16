@@ -39,6 +39,7 @@ fn main() {
 
     taconite.start(WindowConfig {
         name: "Window ECS Example",
+        fullscreen: false,
         vsync: true,
         width: 800,
         height: 600,

@@ -7,6 +7,7 @@ fn main() {
 
     taconite.start(WindowConfig {
         name: "Start Example",
+        fullscreen: false,
         vsync: true,
         width: 800,
         height: 600,
