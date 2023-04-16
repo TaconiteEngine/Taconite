@@ -9,10 +9,10 @@ impl RenderSystem for ShapeRenderSystem {
         manager: &mut crate::EntityManager,
         _accessor: &mut crate::EntityIdAccessor,
         canvas: &mut sdl2::render::Canvas<sdl2::video::Window>,
-    ) {
+    ) -> Option<()> {
         let old_draw_color = canvas.draw_color();
 
-        for shape in manager.borrow_components::<Shape>().unwrap().iter() {
+        for shape in manager.borrow_components::<Shape>()?.iter() {
             match shape.shape {
                 Shapes::Rectangle => {
                     canvas.set_draw_color(shape.color);
@@ -30,5 +30,7 @@ impl RenderSystem for ShapeRenderSystem {
         }
 
         canvas.set_draw_color(old_draw_color);
+
+        Some(())
     }
 }
