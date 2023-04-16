@@ -72,7 +72,8 @@ impl<'a> Renderer<'a> {
             }
 
             self.event_handler.update();
-            self.event_handler.draw(&mut canvas);
+            self.event_handler
+                .draw(&mut canvas, window_config.auto_clear);
 
             canvas.present();
         }
