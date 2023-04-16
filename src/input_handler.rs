@@ -1,4 +1,4 @@
-use log::warn;
+use log::{debug, warn};
 
 #[derive(Default)]
 pub struct InputHandler {
@@ -20,7 +20,7 @@ impl InputHandler {
         if !self.keys.contains(&key_variant) {
             self.keys.push(key_variant);
         } else {
-            warn!("Key already pressed");
+            debug!("Key already pressed");
         }
     }
 
