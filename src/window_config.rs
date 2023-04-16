@@ -20,3 +20,15 @@ impl<'a> WindowConfig<'a> {
         }
     }
 }
+
+impl<'a> Default for WindowConfig<'a> {
+    fn default() -> Self {
+        Self {
+            name: "Taconite window",
+            fullscreen: false,
+            vsync: true,
+            width: 640,
+            height: 480,
+        }
+    }
+}
