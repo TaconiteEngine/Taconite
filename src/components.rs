@@ -1,7 +1,7 @@
 /// Components for use within the engine
 use crate::ecs::*;
 use crate::math::*;
-use sdl2::render::Texture;
+use sdl2::{pixels::Color, render::Texture};
 
 /// A component that holds position and rotation data.
 pub struct Transform {
@@ -20,6 +20,7 @@ pub struct Shape {
     pub shape: Shapes,
     pub position: Vector2,
     pub scale: Vector2,
+    pub color: Color,
 }
 
 impl Default for Transform {
@@ -46,6 +47,7 @@ impl Default for Shape {
             shape: Shapes::Rectangle,
             position: Vector2::splat(0.0),
             scale: Vector2::splat(32.0),
+            color: Color::WHITE,
         }
     }
 }
