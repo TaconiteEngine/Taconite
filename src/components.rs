@@ -52,6 +52,17 @@ impl Default for Shape {
     }
 }
 
+impl Shape {
+    pub fn new(shape: Shapes, position: Vector2, scale: Vector2, color: Color) -> Self {
+        Self {
+            shape,
+            position,
+            scale,
+            color,
+        }
+    }
+}
+
 /// A struct that will be used for drawing sprites to the screen
 /// TODO: Add more information about sprites and ability to draw them
 #[allow(dead_code)]
