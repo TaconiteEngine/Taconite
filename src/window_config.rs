@@ -7,6 +7,7 @@ pub struct WindowConfig<'a> {
     pub vsync: bool,
     pub width: i32,
     pub height: i32,
+    pub auto_clear: bool,
 }
 
 impl<'a> Default for WindowConfig<'a> {
@@ -17,6 +18,7 @@ impl<'a> Default for WindowConfig<'a> {
             vsync: true,
             width: 640,
             height: 480,
+            auto_clear: true,
         }
     }
 }
