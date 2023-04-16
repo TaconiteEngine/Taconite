@@ -25,7 +25,11 @@ impl EventHandler {
         self.world.lock().unwrap().update(&self.input_handler);
     }
 
-    pub fn draw(&mut self, canvas: &mut Canvas<Window>) {
+    pub fn draw(&mut self, canvas: &mut Canvas<Window>, auto_clear: bool) {
+        if auto_clear {
+            canvas.clear();
+        }
+
         self.world.lock().unwrap().update_render(canvas);
     }
 
