@@ -29,16 +29,26 @@ impl<'a> Renderer<'a> {
 
         let _image_ctx = sdl2::image::init(InitFlag::PNG);
 
-        let window = video
-            .window(
-                window_config.name,
-                window_config.width as u32,
-                window_config.height as u32,
-            )
-            .position_centered()
-            .opengl()
-            .build()
-            .map_err(|e| e.to_string())?;
+        let mut window_builder = video.window(
+            window_config.name,
+            window_config.width as u32,
+            window_config.height as u32,
+        );
+
+        let window = match window_config.fullscreen {
+            true => window_builder
+                .position_centered()
+                .opengl()
+                .fullscreen_desktop()
+                .build()
+                .map_err(|e| e.to_string())?,
+
+            false => window_builder
+                .position_centered()
+                .opengl()
+                .build()
+                .map_err(|e| e.to_string())?,
+        };
 
         let mut canvas = match window_config.vsync {
             true => window.into_canvas().present_vsync().build(),
