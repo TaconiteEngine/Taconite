@@ -18,6 +18,7 @@ pub enum Shapes {
 /// A struct that contains a shape and a scale for a shape
 pub struct Shape {
     pub shape: Shapes,
+    pub position: Vector2,
     pub scale: Vector2,
 }
 
@@ -43,7 +44,8 @@ impl Default for Shape {
     fn default() -> Self {
         Self {
             shape: Shapes::Rectangle,
-            scale: Vector2::new(128., 128.),
+            position: Vector2::splat(0.0),
+            scale: Vector2::splat(32.0),
         }
     }
 }
