@@ -19,6 +19,7 @@ pub use event_handler::*;
 pub use input_handler::*;
 pub use math::*;
 pub use new_year::*;
+pub use render_systems::*;
 pub use sdl_fronts::*;
 pub use texture_manager::*;
 pub use window_config::*;
