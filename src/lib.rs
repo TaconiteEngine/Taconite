@@ -5,6 +5,7 @@ mod event_handler;
 mod input_handler;
 mod math;
 mod new_year;
+mod render_systems;
 mod renderer;
 mod sdl_fronts;
 mod texture_manager;
