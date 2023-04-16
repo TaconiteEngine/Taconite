@@ -22,12 +22,12 @@ impl System for PrintPositionSystem {
         manager: &mut EntityManager,
         accessor: &mut EntityIdAccessor,
         input_handler: &InputHandler,
-    ) {
-        let positions = manager.borrow_components::<Position>().unwrap();
-
-        for position in positions.iter() {
+    ) -> Option<()> {
+        for position in manager.borrow_components::<Position>()?.iter() {
             println!("Position: x: {:<10} y: {})", position.x, position.y);
         }
+
+        Some(())
     }
 }
 
@@ -37,12 +37,11 @@ impl System for MovementPositionSystem {
         manager: &mut EntityManager,
         accessor: &mut EntityIdAccessor,
         input_handler: &InputHandler,
-    ) {
-        let entity_ids = accessor
-            .borrow_ids_for_pair::<Velocity, Position>(manager)
-            .unwrap();
-
-        for id in entity_ids.iter() {
+    ) -> Option<()> {
+        for id in accessor
+            .borrow_ids_for_pair::<Velocity, Position>(manager)?
+            .iter()
+        {
             let (velocity, mut position) = manager
                 .borrow_component_pair_mut::<Velocity, Position>(*id)
                 .unwrap();
@@ -50,6 +49,8 @@ impl System for MovementPositionSystem {
             position.x += velocity.x;
             position.y += velocity.y;
         }
+
+        Some(())
     }
 }
 

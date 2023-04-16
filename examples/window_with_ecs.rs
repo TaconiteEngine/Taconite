@@ -8,10 +8,8 @@ impl System for PrintTransformSystem {
         manager: &mut EntityManager,
         accessor: &mut EntityIdAccessor,
         input_handler: &InputHandler,
-    ) {
-        let transforms = manager.borrow_components::<Transform>().unwrap();
-
-        for transform in transforms.iter() {
+    ) -> Option<()> {
+        for transform in manager.borrow_components::<Transform>()?.iter() {
             println!(
                 "Position:\nx: {} y: {} z: {}\n\nRotation:\nx: {} y: {} z: {}\n",
                 transform.position.x,
@@ -22,6 +20,8 @@ impl System for PrintTransformSystem {
                 transform.rotation.z
             )
         }
+
+        Some(())
     }
 }
 
