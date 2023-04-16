@@ -1,4 +1,3 @@
-use log::info;
 use taconite::*;
 
 struct ComponentRenderer {}
@@ -12,7 +11,7 @@ impl System for MovementSystem {
         manager: &mut EntityManager,
         _accessor: &mut EntityIdAccessor,
         input_handler: &InputHandler,
-    ) {
+    ) -> Option<()> {
         let mut x_vel: f32 = 0.0;
         let mut y_vel: f32 = 0.0;
 
@@ -32,14 +31,12 @@ impl System for MovementSystem {
             x_vel += SPEED;
         }
 
-        for transform in manager
-            .borrow_components_mut::<Transform>()
-            .unwrap()
-            .iter_mut()
-        {
+        for transform in manager.borrow_components_mut::<Transform>()?.iter_mut() {
             transform.position.x += x_vel;
             transform.position.y += y_vel;
         }
+
+        Some(())
     }
 }
 
@@ -49,13 +46,13 @@ impl RenderSystem for ComponentRenderer {
         manager: &mut EntityManager,
         _accessor: &mut EntityIdAccessor,
         canvas: &mut sdl2::render::Canvas<sdl2::video::Window>,
-    ) {
+    ) -> Option<()> {
         canvas.set_draw_color(Color::WHITE);
         canvas.clear();
 
         canvas.set_draw_color(Color::RGB(10, 10, 10));
 
-        for transform in manager.borrow_components::<Transform>().unwrap().iter() {
+        for transform in manager.borrow_components::<Transform>()?.iter() {
             canvas
                 .fill_rect(Rect::new(
                     (transform.position.x - 5.0) as i32,
@@ -66,7 +63,7 @@ impl RenderSystem for ComponentRenderer {
                 .expect("Failed to draw to the canvas.");
         }
 
-        // info!("Rendered frame.");
+        Some(())
     }
 }
 

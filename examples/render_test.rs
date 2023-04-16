@@ -1,4 +1,3 @@
-use log::info;
 use taconite::*;
 
 struct ComponentRenderer {}
@@ -11,15 +10,13 @@ impl System for MovementSystem {
         manager: &mut EntityManager,
         accessor: &mut EntityIdAccessor,
         input_handler: &InputHandler,
-    ) {
-        for transform in manager
-            .borrow_components_mut::<Transform>()
-            .unwrap()
-            .iter_mut()
-        {
+    ) -> Option<()> {
+        for transform in manager.borrow_components_mut::<Transform>()?.iter_mut() {
             transform.position.x += 1.;
             transform.position.y += 1.;
         }
+
+        Some(())
     }
 }
 
@@ -29,13 +26,13 @@ impl RenderSystem for ComponentRenderer {
         manager: &mut EntityManager,
         _accessor: &mut EntityIdAccessor,
         canvas: &mut sdl2::render::Canvas<sdl2::video::Window>,
-    ) {
+    ) -> Option<()> {
         canvas.set_draw_color(Color::WHITE);
         canvas.clear();
 
         canvas.set_draw_color(Color::RGB(10, 10, 10));
 
-        for transform in manager.borrow_components::<Transform>().unwrap().iter() {
+        for transform in manager.borrow_components::<Transform>()?.iter() {
             canvas
                 .fill_rect(Rect::new(
                     (transform.position.x - 5.0) as i32,
@@ -46,7 +43,7 @@ impl RenderSystem for ComponentRenderer {
                 .expect("Failed to draw to the canvas.");
         }
 
-        info!("Rendered frame.");
+        Some(())
     }
 }
 
