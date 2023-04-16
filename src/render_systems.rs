@@ -1,8 +1,7 @@
+use crate::{ecs::RenderSystem, Shape, Shapes};
 use sdl2::rect::Rect;
 
-use crate::{ecs::RenderSystem, Shape, Shapes};
-
-struct ShapeRenderSystem {}
+pub struct ShapeRenderSystem {}
 
 impl RenderSystem for ShapeRenderSystem {
     fn update(
