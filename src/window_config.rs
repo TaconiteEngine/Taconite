@@ -9,18 +9,6 @@ pub struct WindowConfig<'a> {
     pub height: i32,
 }
 
-impl<'a> WindowConfig<'a> {
-    pub fn new(name: &str, fullscreen: bool, vsync: bool, width: i32, height: i32) -> WindowConfig {
-        WindowConfig {
-            name,
-            fullscreen,
-            vsync,
-            width,
-            height,
-        }
-    }
-}
-
 impl<'a> Default for WindowConfig<'a> {
     fn default() -> Self {
         Self {
