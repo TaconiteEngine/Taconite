@@ -9,7 +9,7 @@ pub trait System {
         _manager: &mut EntityManager,
         _accessor: &mut EntityIdAccessor,
         _input_handler: &InputHandler,
-    );
+    ) -> Option<()>;
 }
 
 pub trait RenderSystem {
@@ -18,5 +18,5 @@ pub trait RenderSystem {
         _manager: &mut EntityManager,
         _accessor: &mut EntityIdAccessor,
         canvas: &mut Canvas<Window>,
-    );
+    ) -> Option<()>;
 }
