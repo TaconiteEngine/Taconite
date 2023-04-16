@@ -30,7 +30,11 @@ impl<'a> Renderer<'a> {
         let _image_ctx = sdl2::image::init(InitFlag::PNG);
 
         let window = video
-            .window(window_config.name, 800, 600)
+            .window(
+                window_config.name,
+                window_config.width as u32,
+                window_config.height as u32,
+            )
             .position_centered()
             .opengl()
             .build()
