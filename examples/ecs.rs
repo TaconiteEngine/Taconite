@@ -20,8 +20,8 @@ impl System for PrintPositionSystem {
     fn update(
         &mut self,
         manager: &mut EntityManager,
-        accessor: &mut EntityIdAccessor,
-        input_handler: &InputHandler,
+        _accessor: &mut EntityIdAccessor,
+        _input_handler: &InputHandler,
     ) -> Option<()> {
         for position in manager.borrow_components::<Position>()?.iter() {
             println!("Position: x: {:<10} y: {})", position.x, position.y);
@@ -36,7 +36,7 @@ impl System for MovementPositionSystem {
         &mut self,
         manager: &mut EntityManager,
         accessor: &mut EntityIdAccessor,
-        input_handler: &InputHandler,
+        _input_handler: &InputHandler,
     ) -> Option<()> {
         for id in accessor
             .borrow_ids_for_pair::<Velocity, Position>(manager)?
@@ -70,9 +70,6 @@ fn main() {
 
     taconite.start(WindowConfig {
         name: "ECS Example",
-        fullscreen: false,
-        vsync: true,
-        width: 800,
-        height: 600,
+        ..Default::default()
     });
 }

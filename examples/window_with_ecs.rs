@@ -6,8 +6,8 @@ impl System for PrintTransformSystem {
     fn update(
         &mut self,
         manager: &mut EntityManager,
-        accessor: &mut EntityIdAccessor,
-        input_handler: &InputHandler,
+        _accessor: &mut EntityIdAccessor,
+        _input_handler: &InputHandler,
     ) -> Option<()> {
         for transform in manager.borrow_components::<Transform>()?.iter() {
             println!(
@@ -39,9 +39,6 @@ fn main() {
 
     taconite.start(WindowConfig {
         name: "Window ECS Example",
-        fullscreen: false,
-        vsync: true,
-        width: 800,
-        height: 600,
+        ..Default::default()
     });
 }

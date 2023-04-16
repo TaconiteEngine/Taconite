@@ -8,8 +8,8 @@ impl System for MovementSystem {
     fn update(
         &mut self,
         manager: &mut EntityManager,
-        accessor: &mut EntityIdAccessor,
-        input_handler: &InputHandler,
+        _accessor: &mut EntityIdAccessor,
+        _input_handler: &InputHandler,
     ) -> Option<()> {
         for transform in manager.borrow_components_mut::<Transform>()?.iter_mut() {
             transform.position.x += 1.;
@@ -67,9 +67,6 @@ fn main() {
 
     taconite.start(WindowConfig {
         name: "Render Test Example",
-        fullscreen: false,
-        vsync: true,
-        width: 800,
-        height: 600,
+        ..Default::default()
     });
 }

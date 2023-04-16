@@ -89,9 +89,6 @@ fn main() {
 
     taconite.start(WindowConfig {
         name: "Render Test Example",
-        fullscreen: false,
-        vsync: true,
-        width: 800,
-        height: 600,
+        ..Default::default()
     });
 }
