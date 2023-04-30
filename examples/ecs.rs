@@ -54,7 +54,10 @@ impl System for MovementPositionSystem {
     }
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let subscriber = tracing_subscriber::fmt().compact().without_time().finish();
+    tracing::subscriber::set_global_default(subscriber)?;
+
     let mut taconite = Taconite::default();
 
     taconite.register_component::<Position>();
@@ -72,4 +75,6 @@ fn main() {
         name: "ECS Example",
         ..Default::default()
     });
+
+    Ok(())
 }
