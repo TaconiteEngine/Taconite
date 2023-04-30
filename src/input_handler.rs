@@ -1,4 +1,4 @@
-use log::{debug, warn};
+use tracing::{debug, warn};
 
 #[derive(Default)]
 pub struct InputHandler {

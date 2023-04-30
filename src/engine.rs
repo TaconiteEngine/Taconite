@@ -1,5 +1,5 @@
-use log::{error, info};
 use std::sync::{Arc, Mutex};
+use tracing::{error, info};
 
 use crate::input_handler::Key;
 use crate::renderer::*;
