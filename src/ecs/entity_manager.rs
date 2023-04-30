@@ -3,12 +3,12 @@ use crate::ecs::{
     component_manager::{cast_manager, cast_manager_mut, ComponentManager, ComponentManagerT},
     entity::Entity,
 };
-use log::*;
 use std::{
     any::TypeId,
     collections::{hash_map, HashMap},
     vec,
 };
+use tracing::*;
 struct Entities {
     entities: Vec<Entity>,
     available_indexes: Vec<usize>,
