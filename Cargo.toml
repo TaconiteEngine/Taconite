@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Rust Bytes <rustbytes@proton.me>"]
 license = "MIT"
-homepage = "https://TeaSpillStudios.vercel.app/projects/taconite"
+homepage = "https://rustbytes.uk/taconite"
 repository = "https://git.rustbytes.uk/RustBytes/Taconite"
 description = "A simple game engine wrote in rust for simplicity, speed and memory safety."
 
@@ -23,4 +23,4 @@ lto = true
 codegen-units = 1
 
 [dev-dependencies]
-pretty_env_logger = "0.4.0"
+tracing-subscriber = "0.3.17"
