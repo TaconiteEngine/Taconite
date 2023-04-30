@@ -25,8 +25,9 @@ impl System for PrintTransformSystem {
     }
 }
 
-fn main() {
-    pretty_env_logger::init();
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let subscriber = tracing_subscriber::fmt().compact().without_time().finish();
+    tracing::subscriber::set_global_default(subscriber)?;
 
     let mut taconite = Taconite::default();
 
@@ -41,4 +42,6 @@ fn main() {
         name: "Window ECS Example",
         ..Default::default()
     });
+
+    Ok(())
 }
