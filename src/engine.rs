@@ -2,21 +2,21 @@ use std::sync::{Arc, Mutex};
 use tracing::{error, info};
 
 use crate::input_handler::Key;
-use crate::renderer::*;
+// use crate::renderer::*;
 use crate::{ecs::*, WindowConfig};
 use crate::{Shape, Sprite, Transform};
 
 /// The main struct that holds the engine.
-pub struct Taconite<'a> {
+pub struct Taconite {
     world: Arc<Mutex<World>>,
-    renderer: Option<Renderer<'a>>,
+    // renderer: Option<Renderer<'a>>,
 }
 
-impl Default for Taconite<'_> {
+impl Default for Taconite {
     fn default() -> Self {
         let mut taconite = Self {
             world: Arc::new(Mutex::new(World::default())),
-            renderer: None,
+            // renderer: None,
         };
 
         taconite.register_component::<Transform>();
@@ -29,7 +29,7 @@ impl Default for Taconite<'_> {
     }
 }
 
-impl Taconite<'_> {
+impl Taconite {
     /// Create a new entity.
     /// This will create a new entity with the ECS system and return it's ID (a usize).
     pub fn create_entity(&mut self) -> usize {
@@ -73,18 +73,13 @@ impl Taconite<'_> {
     }
 
     pub fn is_key_down(&self, key_variant: Key) -> bool {
-        self.renderer
-            .as_ref()
-            .unwrap()
-            .event_handler
-            .input_handler
-            .is_key_down(key_variant)
+        todo!("Check if key is down");
     }
 
     /// Start the window and begin rendering and updating.
     /// This takes in a `WindowConfig` and opens the window.
     pub fn start(&mut self, window_config: WindowConfig) {
-        self.renderer = Some(Renderer::new(self.world.clone()));
+        // self.renderer = Some(Renderer::new(self.world.clone()));
 
         match self.begin(window_config) {
             Ok(v) => v,
@@ -93,6 +88,7 @@ impl Taconite<'_> {
     }
 
     fn begin(&mut self, window_config: WindowConfig) -> Result<(), String> {
-        self.renderer.as_mut().unwrap().start_window(window_config)
+        todo!("Start the window.");
+        // self.renderer.as_mut().unwrap().start_window(window_config)
     }
 }
