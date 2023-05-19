@@ -12,6 +12,7 @@ description = "A simple game engine wrote in rust for simplicity, speed and memo
 num_cpus = "1.15.0"
 tracing = "0.1.37"
 wgpu = "0.16.0"
+winit = "0.28.6"
 
 [lib]
 name = "taconite"
