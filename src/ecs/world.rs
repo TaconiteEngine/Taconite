@@ -1,4 +1,4 @@
-use sdl2::{render::Canvas, video::Window};
+// use sdl2::{render::Canvas, video::Window};
 
 use crate::InputHandler;
 
@@ -61,12 +61,12 @@ impl World {
         }
     }
 
-    pub fn update_render(&mut self, canvas: &mut Canvas<Window>) {
+    pub fn update_render(&mut self) {
         for render_system in self.render_systems.iter_mut() {
             render_system.update(
                 &mut self.entity_manager,
                 &mut self.entity_id_accessor,
-                canvas,
+                // canvas,
             );
 
             self.entity_manager.increment_frame();
