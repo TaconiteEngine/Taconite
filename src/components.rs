@@ -1,7 +1,9 @@
 /// Components for use within the engine
+use wgpu::{Color, Texture};
+
 use crate::ecs::*;
 use crate::math::*;
-use sdl2::{pixels::Color, render::Texture};
+// use sdl2::{pixels::Color, render::Texture};
 
 /// A component that holds position and rotation data.
 pub struct Transform {
@@ -66,10 +68,10 @@ impl Shape {
 /// A struct that will be used for drawing sprites to the screen
 /// TODO: Add more information about sprites and ability to draw them
 #[allow(dead_code)]
-pub struct Sprite<'a> {
-    texture: Texture<'a>,
+pub struct Sprite {
+    texture: Texture,
 }
 
 impl Component for Transform {}
-impl Component for Sprite<'_> {}
+impl Component for Sprite {}
 impl Component for Shape {}
