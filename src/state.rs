@@ -1,3 +1,5 @@
+use winit::{event::*, window::Window};
+
 pub struct State {
     surface: wgpu::Surface,
     device: wgpu::Device,
@@ -31,5 +33,9 @@ impl State {
 
     fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
         todo!()
+    }
+
+    pub fn window_mut(&mut self) -> &mut Window {
+        &mut self.window
     }
 }
