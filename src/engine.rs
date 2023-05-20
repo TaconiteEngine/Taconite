@@ -79,16 +79,8 @@ impl Taconite {
     /// Start the window and begin rendering and updating.
     /// This takes in a `WindowConfig` and opens the window.
     pub fn start(&mut self, window_config: WindowConfig) {
-        // self.renderer = Some(Renderer::new(self.world.clone()));
-
-        match self.begin(window_config) {
-            Ok(v) => v,
-            Err(e) => error!("Error starting window: {e}"),
-        }
-    }
-
-    fn begin(&mut self, window_config: WindowConfig) -> Result<(), String> {
-        todo!("Start the window.");
-        // self.renderer.as_mut().unwrap().start_window(window_config)
+        if let Err(e) = self.window_starter.begin(window_config) {
+            error!("Error starting window: {e}");
+        };
     }
 }
