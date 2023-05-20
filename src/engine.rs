@@ -2,21 +2,21 @@ use std::sync::{Arc, Mutex};
 use tracing::{error, info};
 
 use crate::input_handler::Key;
-// use crate::renderer::*;
+use crate::window_starter::*;
 use crate::{ecs::*, WindowConfig};
 use crate::{Shape, Sprite, Transform};
 
 /// The main struct that holds the engine.
 pub struct Taconite {
     world: Arc<Mutex<World>>,
-    // renderer: Option<Renderer<'a>>,
+    window_starter: WindowStarter,
 }
 
 impl Default for Taconite {
     fn default() -> Self {
         let mut taconite = Self {
             world: Arc::new(Mutex::new(World::default())),
-            // renderer: None,
+            window_starter: WindowStarter::default(),
         };
 
         taconite.register_component::<Transform>();
