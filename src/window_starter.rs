@@ -1,10 +1,18 @@
-use winit::window::Window;
+use thiserror::*;
+
+use crate::WindowConfig;
 
 #[derive(Default)]
 pub struct WindowStarter();
 
+#[derive(Debug, Error)]
+pub enum WindowError {
+    #[error("There was no GPU detected.")]
+    NoGPU,
+}
+
 impl WindowStarter {
-    pub fn new_window() -> Result<(), Window> {
-        todo!("Make a window.");
+    pub fn begin(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
+        todo!("Make a new window.")
     }
 }
