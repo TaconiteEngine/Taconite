@@ -10,6 +10,7 @@ mod state;
 mod texture_manager;
 mod thread_pool;
 mod window_config;
+mod window_starter;
 
 pub use components::*;
 pub use ecs::*;
