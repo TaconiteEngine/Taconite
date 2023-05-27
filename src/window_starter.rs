@@ -1,6 +1,9 @@
-use thiserror::*;
-
 use crate::WindowConfig;
+
+use thiserror::*;
+use winit::event::*;
+use winit::event_loop::{ControlFlow, EventLoop};
+use winit::window::WindowBuilder;
 
 #[derive(Default)]
 pub struct WindowStarter();
@@ -19,6 +22,29 @@ pub enum WindowError {
 
 impl WindowStarter {
     pub fn create_window(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
-        todo!("Make a new window.")
+        let event_loop = EventLoop::new();
+        let window = WindowBuilder::new()
+            .build(&event_loop)
+            .map_err(|_| WindowError::WindowFailure)?;
+
+        event_loop.run(move |event, _, control_flow| match event {
+            Event::WindowEvent {
+                ref event,
+                window_id,
+            } if window_id == window.id() => match event {
+                WindowEvent::CloseRequested
+                | WindowEvent::KeyboardInput {
+                    input:
+                        KeyboardInput {
+                            state: ElementState::Pressed,
+                            virtual_keycode: Some(VirtualKeyCode::Escape),
+                            ..
+                        },
+                    ..
+                } => *control_flow = ControlFlow::Exit,
+                _ => {}
+            },
+            _ => {}
+        });
     }
 }
