@@ -1,7 +1,7 @@
 #![allow(dead_code)]
 use winit::{event::*, window::Window};
 
-use crate::window_starter::WindowError;
+use crate::errors::WindowError;
 
 pub struct State {
     surface: wgpu::Surface,
@@ -89,8 +89,20 @@ impl State {
         &self.window
     }
 
-    pub(crate) fn resize(&mut self, new_size: winit::dpi::PhysicalSize<u32>) {
-        todo!()
+    pub(crate) fn resize(
+        &mut self,
+        new_size: winit::dpi::PhysicalSize<u32>,
+    ) -> Result<(), WindowError> {
+        if new_size.width > 0 && new_size.height > 0 {
+            self.size = new_size;
+            self.config.width = new_size.width;
+            self.config.height = new_size.height;
+            self.surface.configure(&self.device, &self.config);
+
+            Ok(())
+        } else {
+            Err(WindowError::ResizeError)
+        }
     }
 
     pub(crate) fn input(&mut self, event: &WindowEvent) -> bool {
