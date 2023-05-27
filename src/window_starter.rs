@@ -1,7 +1,6 @@
+use crate::errors::*;
 use crate::state::State;
-use crate::WindowConfig;
 
-use thiserror::*;
 use winit::event::*;
 use winit::event_loop::{ControlFlow, EventLoop};
 use winit::window::WindowBuilder;
@@ -10,16 +9,6 @@ use winit::window::WindowBuilder;
 pub struct WindowStarter();
 
 // TODO: Remove allowing dead code
-#[derive(Debug, Error)]
-#[allow(dead_code)]
-pub enum WindowError {
-    #[error("There was no GPU detected.")]
-    NoGPU,
-    #[error("Creating a new window with Winit failed.")]
-    WindowFailure,
-    #[error("Creating a new wgpu surface failed.")]
-    SurfaceFailure,
-}
 
 impl WindowStarter {
     pub fn run(&mut self) -> Result<(), WindowError> {
