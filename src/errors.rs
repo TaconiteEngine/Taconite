@@ -8,6 +8,6 @@ pub enum WindowError {
     WindowFailure,
     #[error("Creating a new wgpu surface failed.")]
     SurfaceFailure,
-    #[error("Can't resize to this size.")]
+    #[error("Can't resize to this size. (Is it greater than 0 on both axis?)")]
     ResizeError,
 }
