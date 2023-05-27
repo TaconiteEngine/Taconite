@@ -72,7 +72,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     taconite.add_system(MovementPositionSystem {});
 
     taconite.start(WindowConfig {
-        name: "ECS Example",
+        name: "ECS Example".into(),
         ..Default::default()
     });
 

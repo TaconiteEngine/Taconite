@@ -7,7 +7,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut taconite = Taconite::default();
 
     taconite.start(WindowConfig {
-        name: "Window example",
+        name: "Window example".into(),
         ..Default::default()
     });
 

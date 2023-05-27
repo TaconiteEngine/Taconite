@@ -39,7 +39,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     taconite.add_system(PrintTransformSystem {});
 
     taconite.start(WindowConfig {
-        name: "Window ECS Example",
+        name: "Window ECS Example".into(),
         ..Default::default()
     });
 
