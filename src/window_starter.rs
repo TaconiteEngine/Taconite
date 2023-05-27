@@ -16,7 +16,7 @@ pub enum WindowError {
 }
 
 impl WindowStarter {
-    pub fn begin(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
+    pub fn create_window(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
         todo!("Make a new window.")
     }
 }
