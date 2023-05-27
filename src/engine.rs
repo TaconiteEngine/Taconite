@@ -1,4 +1,4 @@
-use std::sync::{Arc, Mutex};
+use std::sync::{Arc, Mutex, MutexGuard};
 use tracing::{error, info};
 
 use crate::input_handler::Key;
@@ -67,8 +67,7 @@ impl Taconite {
         entity_id: usize,
         component: T,
     ) {
-        Mutex::lock(&self.world)
-            .unwrap()
+        self.get_world_guard()
             .add_component_to_entity(entity_id, component);
     }
 
@@ -82,5 +81,9 @@ impl Taconite {
         if let Err(e) = self.window_starter.begin(window_config) {
             error!("Error starting window: {e}");
         };
+    }
+
+    fn get_world_guard(&self) -> MutexGuard<World> {
+        self.world.lock().unwrap()
     }
 }
