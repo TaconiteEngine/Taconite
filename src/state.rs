@@ -110,11 +110,11 @@ impl State {
         false
     }
 
-    fn update(&mut self) {
+    pub(crate) fn update(&mut self) {
         // Nothing to update yet
     }
 
-    fn render(&mut self) -> Result<(), WindowError> {
+    pub(crate) fn render(&mut self) -> Result<(), WindowError> {
         let output = self
             .surface
             .get_current_texture()
