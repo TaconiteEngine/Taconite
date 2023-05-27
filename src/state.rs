@@ -117,7 +117,7 @@ impl State {
         let output = self
             .surface
             .get_current_texture()
-            .map_err(|_| Err::<(), WindowError>(WindowError::SurfaceFailure))?;
+            .map_err(|_| WindowError::SurfaceFailure)?;
 
         let view = output
             .texture
