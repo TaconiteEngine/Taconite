@@ -1,8 +1,8 @@
 /// The WindowConfig struct holds the information for how the window should be created.
 /// This is used later so that it is able to correctly inform the renderer on how to create the
 /// window when needed
-pub struct WindowConfig<'a> {
-    pub name: &'a str,
+pub struct WindowConfig {
+    pub name: String,
     pub fullscreen: bool,
     pub vsync: bool,
     pub width: i32,
@@ -10,10 +10,10 @@ pub struct WindowConfig<'a> {
     pub auto_clear: bool,
 }
 
-impl<'a> Default for WindowConfig<'a> {
+impl Default for WindowConfig {
     fn default() -> Self {
         Self {
-            name: "Taconite window",
+            name: String::from("Taconite window"),
             fullscreen: false,
             vsync: true,
             width: 640,
