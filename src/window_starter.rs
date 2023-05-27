@@ -1,3 +1,4 @@
+use crate::state::State;
 use crate::WindowConfig;
 
 use thiserror::*;
@@ -21,30 +22,52 @@ pub enum WindowError {
 }
 
 impl WindowStarter {
-    pub fn create_window(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
+    pub fn run(&mut self) -> Result<(), WindowError> {
+        pollster::block_on(self.create_window())?;
+
+        Ok(())
+    }
+
+    // TODO: Add a way to get window config back in.
+    pub async fn create_window(&mut self) -> Result<(), WindowError> {
         let event_loop = EventLoop::new();
         let window = WindowBuilder::new()
             .build(&event_loop)
             .map_err(|_| WindowError::WindowFailure)?;
 
-        event_loop.run(move |event, _, control_flow| match event {
-            Event::WindowEvent {
-                ref event,
-                window_id,
-            } if window_id == window.id() => match event {
-                WindowEvent::CloseRequested
-                | WindowEvent::KeyboardInput {
-                    input:
-                        KeyboardInput {
-                            state: ElementState::Pressed,
-                            virtual_keycode: Some(VirtualKeyCode::Escape),
-                            ..
-                        },
-                    ..
-                } => *control_flow = ControlFlow::Exit,
+        let mut state = State::new(window).await?;
+
+        event_loop.run(move |event, _, control_flow| {
+            match event {
+                Event::WindowEvent {
+                    ref event,
+                    window_id,
+                } if window_id == state.window().id() => {
+                    if !state.input(event) {
+                        // UPDATED!
+                        match event {
+                            WindowEvent::CloseRequested
+                            | WindowEvent::KeyboardInput {
+                                input:
+                                    KeyboardInput {
+                                        state: ElementState::Pressed,
+                                        virtual_keycode: Some(VirtualKeyCode::Escape),
+                                        ..
+                                    },
+                                ..
+                            } => *control_flow = ControlFlow::Exit,
+                            WindowEvent::Resized(physical_size) => {
+                                state.resize(*physical_size);
+                            }
+                            WindowEvent::ScaleFactorChanged { new_inner_size, .. } => {
+                                state.resize(**new_inner_size);
+                            }
+                            _ => {}
+                        }
+                    }
+                }
                 _ => {}
-            },
-            _ => {}
+            }
         });
     }
 }
