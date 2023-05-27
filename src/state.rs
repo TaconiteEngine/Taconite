@@ -114,11 +114,8 @@ impl State {
         // Nothing to update yet
     }
 
-    pub(crate) fn render(&mut self) -> Result<(), WindowError> {
-        let output = self
-            .surface
-            .get_current_texture()
-            .map_err(|_| WindowError::SurfaceFailure)?;
+    pub(crate) fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
+        let output = self.surface.get_current_texture()?;
 
         let view = output
             .texture
