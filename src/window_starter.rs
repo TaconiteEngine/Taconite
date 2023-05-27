@@ -1,6 +1,7 @@
-use crate::errors::*;
 use crate::state::State;
+use crate::{errors::*, WindowConfig};
 
+use winit::dpi::PhysicalSize;
 use winit::event::*;
 use winit::event_loop::{ControlFlow, EventLoop};
 use winit::window::WindowBuilder;
@@ -13,16 +14,18 @@ pub struct WindowStarter();
 // TODO: Remove allowing dead code
 
 impl WindowStarter {
-    pub fn run(&mut self) -> Result<(), WindowError> {
-        pollster::block_on(self.create_window())?;
+    pub fn run(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
+        pollster::block_on(self.create_window(window_config))?;
 
         Ok(())
     }
 
     // TODO: Add a way to get window config back in.
-    pub async fn create_window(&mut self) -> Result<(), WindowError> {
+    pub async fn create_window(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
         let event_loop = EventLoop::new();
         let window = WindowBuilder::new()
+            .with_inner_size(PhysicalSize::new(window_config.width, window_config.height))
+            .with_title(window_config.name)
             .build(&event_loop)
             .map_err(|_| WindowError::WindowFailure)?;
 
