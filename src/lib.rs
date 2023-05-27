@@ -1,6 +1,7 @@
 mod components;
 pub mod ecs;
 mod engine;
+mod errors;
 mod event_handler;
 mod input_handler;
 mod math;
