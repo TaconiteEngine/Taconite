@@ -11,11 +11,24 @@
             "id": "39b0e731c1fed801",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "kanban",
+              "state": {
+                "file": "Todo.md"
+              }
+            }
+          },
+          {
+            "id": "9062f7cdc396cd48",
+            "type": "leaf",
+            "state": {
+              "type": "kanban",
+              "state": {
+                "file": "Todo.md"
+              }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -81,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Todo.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +111,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Todo.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +133,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Todo.md"
+              }
             }
           }
         ]
@@ -138,6 +155,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "39b0e731c1fed801",
-  "lastOpenFiles": []
+  "active": "bd52854f61069cfe",
+  "lastOpenFiles": [
+    "Pipeline creator.md",
+    "Todo.md"
+  ]
 }

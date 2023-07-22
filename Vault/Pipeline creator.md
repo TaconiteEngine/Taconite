@@ -1,0 +1,1 @@
+Have a struct that takes in paths to shaders and will automatically give them to State. This may require State to be stored as `Arc<Mutex<State>>` in `Taconite` to allow being shared mutably with the Pipeline creator.
