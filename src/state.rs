@@ -1,6 +1,6 @@
 #![allow(dead_code)]
-use winit::{event::*, window::Window};
 
+use winit::{event::*, window::Window};
 use crate::errors::WindowError;
 
 pub struct State {
@@ -55,6 +55,7 @@ impl State {
             .unwrap();
 
         let surface_caps = surface.get_capabilities(&adapter);
+
         // Shader code in this tutorial assumes an Srgb surface texture. Using a different
         // one will result all the colors comming out darker. If you want to support non
         // Srgb surfaces, you'll need to account for that when drawing to the frame.
@@ -64,6 +65,7 @@ impl State {
             .copied()
             .find(|f| f.describe().srgb)
             .unwrap_or(surface_caps.formats[0]);
+
         let config = wgpu::SurfaceConfiguration {
             usage: wgpu::TextureUsages::RENDER_ATTACHMENT,
             format: surface_format,
@@ -73,6 +75,7 @@ impl State {
             alpha_mode: surface_caps.alpha_modes[0],
             view_formats: vec![],
         };
+
         surface.configure(&device, &config);
 
         Ok(Self {
@@ -147,7 +150,6 @@ impl State {
             });
         }
 
-        // submit will accept anything that implements IntoIter
         self.queue.submit(std::iter::once(encoder.finish()));
         output.present();
 
