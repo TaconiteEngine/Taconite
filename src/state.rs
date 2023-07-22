@@ -1,15 +1,18 @@
 #![allow(dead_code)]
 
-use winit::{event::*, window::Window};
+use winit::{event::*, window::Window, dpi::PhysicalSize};
+use wgpu::{Surface, Device, Queue, SurfaceConfiguration, RenderPipeline};
 use crate::errors::WindowError;
 
+// TODO: Pluck which ones need to be public
 pub struct State {
-    surface: wgpu::Surface,
-    device: wgpu::Device,
-    queue: wgpu::Queue,
-    config: wgpu::SurfaceConfiguration,
-    pub(crate) size: winit::dpi::PhysicalSize<u32>,
-    window: Window,
+    pub(crate) surface: Surface,
+    pub(crate) device: Device,
+    pub(crate) queue: Queue,
+    pub(crate) config: SurfaceConfiguration,
+    pub(crate) size: PhysicalSize<u32>,
+    pub(crate) window: Window,
+    pub(crate) render_pipeline: RenderPipeline,
 }
 
 impl State {
