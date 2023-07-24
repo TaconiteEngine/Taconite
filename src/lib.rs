@@ -13,6 +13,7 @@ mod texture_manager;
 mod thread_pool;
 mod window_config;
 mod window_starter;
+mod pipeline_composer;
 
 pub use components::*;
 pub use ecs::*;
@@ -25,3 +26,4 @@ pub use new_year::*;
 pub use render_systems::*;
 pub use texture_manager::*;
 pub use window_config::*;
+pub use pipeline_composer::*;
