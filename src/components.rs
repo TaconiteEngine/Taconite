@@ -5,6 +5,7 @@ use crate::ecs::*;
 use crate::math::*;
 
 /// A component that holds position and rotation data.
+#[derive(Default)]
 pub struct Transform {
     pub position: Vector3,
     pub rotation: Vector3,
@@ -22,15 +23,6 @@ pub struct Shape {
     pub position: Vector2,
     pub scale: Vector2,
     pub color: Color,
-}
-
-impl Default for Transform {
-    fn default() -> Self {
-        Self {
-            position: Vector3::default(),
-            rotation: Vector3::default(),
-        }
-    }
 }
 
 impl Transform {
