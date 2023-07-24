@@ -1,6 +1,7 @@
 /// A struct that holds a:
 ///     * x coordinate
 ///     * y coordinate
+#[derive(Default)]
 pub struct Vector2 {
     pub x: f32,
     pub y: f32,
@@ -10,6 +11,7 @@ pub struct Vector2 {
 ///     * x coordinate
 ///     * y coordinate
 ///     * z coordinate
+#[derive(Default)]
 pub struct Vector3 {
     pub x: f32,
     pub y: f32,
