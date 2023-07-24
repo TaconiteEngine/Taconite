@@ -42,7 +42,7 @@ impl System for MovementPositionSystem {
             .borrow_ids_for_pair::<Velocity, Position>(manager)?
             .iter()
         {
-            let (velocity, mut position) = manager
+            let (velocity, position) = manager
                 .borrow_component_pair_mut::<Velocity, Position>(*id)
                 .unwrap();
 
