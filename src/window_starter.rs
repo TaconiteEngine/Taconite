@@ -6,7 +6,7 @@ use winit::event::*;
 use winit::event_loop::{ControlFlow, EventLoop};
 use winit::window::WindowBuilder;
 
-use tracing::warn;
+use tracing::{warn, error};
 
 #[derive(Default)]
 pub struct WindowStarter();
@@ -51,11 +51,15 @@ impl WindowStarter {
                                 ..
                             } => *control_flow = ControlFlow::Exit,
                             WindowEvent::Resized(physical_size) => {
-                                state.resize(*physical_size);
+                                if state.resize(*physical_size).is_err() {
+                                    error!("Failed to resize")
+                                }
                             }
                             WindowEvent::ScaleFactorChanged { new_inner_size, .. } => {
                                 // new_inner_size is &&mut so w have to dereference it twice
-                                state.resize(**new_inner_size);
+                                if state.resize(**new_inner_size).is_err() {
+                                    error!("Failed to resize")
+                                }
                             }
                             _ => {}
                         }

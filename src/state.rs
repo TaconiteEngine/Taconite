@@ -164,7 +164,7 @@ impl State {
         }
     }
 
-    pub(crate) fn input(&mut self, event: &WindowEvent) -> bool {
+    pub(crate) fn input(&mut self, _event: &WindowEvent) -> bool {
         // Temporary to allow the event loop to continue
         false
     }

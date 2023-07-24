@@ -1,8 +1,4 @@
-use crate::{
-    input_handler::{InputHandler, Key},
-    World,
-};
-// use sdl2::{event::Event, keyboard::Keycode, render::Canvas, video::Window, EventPump};
+use crate::{World, InputHandler};
 use std::sync::{Arc, Mutex};
 
 #[allow(dead_code)]
@@ -25,7 +21,7 @@ impl EventHandler {
         self.world.lock().unwrap().update(&self.input_handler);
     }
 
-    pub fn draw(&mut self, auto_clear: bool) {
+    pub fn draw(&mut self, _auto_clear: bool) {
         // if auto_clear {
         //     canvas.clear();
         // }

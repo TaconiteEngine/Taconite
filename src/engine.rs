@@ -71,7 +71,7 @@ impl Taconite {
             .add_component_to_entity(entity_id, component);
     }
 
-    pub fn is_key_down(&self, key_variant: Key) -> bool {
+    pub fn is_key_down(&self, _key_variant: Key) -> bool {
         todo!("Check if key is down");
     }
 
