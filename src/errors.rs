@@ -11,3 +11,9 @@ pub enum WindowError {
     #[error("Can't resize to this size. (Is it greater than 0 on both axis?)")]
     ResizeError,
 }
+
+#[derive(Debug, Error)]
+pub enum PipelineError {
+    #[error("There was no GPU detected.")]
+    BadPath,
+}
