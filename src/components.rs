@@ -3,7 +3,6 @@ use wgpu::{Color, Texture};
 
 use crate::ecs::*;
 use crate::math::*;
-// use sdl2::{pixels::Color, render::Texture};
 
 /// A component that holds position and rotation data.
 pub struct Transform {
@@ -28,8 +27,8 @@ pub struct Shape {
 impl Default for Transform {
     fn default() -> Self {
         Self {
-            position: Vector3::new(0., 0., 0.),
-            rotation: Vector3::new(0., 0., 0.),
+            position: Vector3::default(),
+            rotation: Vector3::default(),
         }
     }
 }
@@ -38,7 +37,7 @@ impl Transform {
     pub fn new(position: Vector3) -> Self {
         Self {
             position,
-            rotation: Vector3::splat(0.0),
+            rotation: Vector3::default(),
         }
     }
 }
