@@ -19,9 +19,3 @@ pub enum PipelineError {
     #[error("The pipeline has not been initiated.")]
     NotInitialised,
 }
-
-#[derive(Debug, Error)]
-pub enum StartError {
-    #[error("There was an issue with the pipeline.")]
-    PipelineError,
-}
