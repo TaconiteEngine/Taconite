@@ -16,4 +16,6 @@ pub enum WindowError {
 pub enum PipelineError {
     #[error("There was no GPU detected.")]
     BadPath,
+    #[error("The pipeline has not been initiated.")]
+    NotInitialised,
 }
