@@ -2,7 +2,7 @@
 
 use winit::{event::*, window::Window, dpi::PhysicalSize};
 use wgpu::{Surface, Device, Queue, SurfaceConfiguration, RenderPipeline};
-use crate::errors::WindowError;
+use crate::{errors::WindowError, PipelineComposer};
 
 // TODO: Pluck which ones need to be public
 pub struct State {
@@ -12,6 +12,7 @@ pub struct State {
     pub(crate) config: SurfaceConfiguration,
     pub(crate) size: PhysicalSize<u32>,
     pub(crate) window: Window,
+    pub(crate) pipeline_composer: PipelineComposer,
     pub(crate) render_pipeline: RenderPipeline,
 }
 
