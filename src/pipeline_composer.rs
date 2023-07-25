@@ -20,7 +20,7 @@ impl PipelineComposer {
 
         let shader_source = match shader_source {
             Ok(v) => v,
-            Err(e) => {
+            Err(_) => {
                 self.pipeline = Err(PipelineError::BadPath);
                 return;
             }
@@ -42,7 +42,7 @@ impl PipelineComposer {
                 });
 
         // TODO: Need to give user access to options?
-        let render_pipeline = self
+        self.pipeline = Ok(self
             .device
             .create_render_pipeline(&wgpu::RenderPipelineDescriptor {
                 label: Some("Render Pipeline"),
@@ -86,6 +86,8 @@ impl PipelineComposer {
                 // If the pipeline will be used with a multiview render pass, this
                 // indicates how many array layers the attachments will have.
                 multiview: None,
-            });
+            }));
+
+        self.pipeline = Err(PipelineError::NotInitialised);
     }
 }
