@@ -11,8 +11,6 @@ use tracing::{warn, error};
 #[derive(Default)]
 pub struct WindowStarter();
 
-// TODO: Remove allowing dead code
-
 impl WindowStarter {
     pub fn run(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
         pollster::block_on(self.create_window(window_config))?;
