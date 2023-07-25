@@ -1,20 +1,30 @@
-use std::{fs, sync::Arc};
 use wgpu::{Device, RenderPipeline, SurfaceConfiguration};
+use std::{fs, sync::Arc};
 
 use crate::errors::PipelineError;
 
 pub struct PipelineComposer {
+    pub(crate) pipeline: Result<RenderPipeline, PipelineError>,
+
     device: Arc<Device>,
     config: SurfaceConfiguration,
 }
 
 impl PipelineComposer {
     pub fn new(device: Arc<Device>, config: SurfaceConfiguration) -> PipelineComposer {
-        PipelineComposer { device, config }
+        PipelineComposer { pipeline: Err(PipelineError::NotInitialised), device, config }
     }
 
-    pub fn new_pipeline(&self, shader_path: &str) -> Result<RenderPipeline, PipelineError> {
-        let shader_source = fs::read_to_string(shader_path).map_err(|_| PipelineError::BadPath)?;
+    pub fn new_pipeline(&mut self, shader_path: &str) {
+        let shader_source = fs::read_to_string(shader_path);
+
+        let shader_source = match shader_source {
+            Ok(v) => v,
+            Err(e) => {
+                self.pipeline = Err(PipelineError::BadPath);
+                return;
+            }
+        };
 
         let shader = self
             .device
@@ -31,6 +41,7 @@ impl PipelineComposer {
                     push_constant_ranges: &[],
                 });
 
+        // TODO: Need to give user access to options?
         let render_pipeline = self
             .device
             .create_render_pipeline(&wgpu::RenderPipelineDescriptor {
@@ -76,7 +87,5 @@ impl PipelineComposer {
                 // indicates how many array layers the attachments will have.
                 multiview: None,
             });
-
-        Ok(render_pipeline)
     }
 }
