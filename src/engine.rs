@@ -1,6 +1,7 @@
 use std::sync::{Arc, Mutex, MutexGuard};
 use tracing::{error, info};
 
+use crate::errors::PipelineError;
 use crate::input_handler::Key;
 use crate::window_starter::*;
 use crate::{ecs::*, WindowConfig};
@@ -77,8 +78,8 @@ impl Taconite {
 
     /// Start the window and begin rendering and updating.
     /// This takes in a `WindowConfig` and opens the window.
-    pub fn start(&mut self, window_config: WindowConfig) {
-        if let Err(e) = self.window_starter.run(window_config) {
+    pub fn start(&mut self, window_config: WindowConfig, shaders_path: String) {
+        if let Err(e) = self.window_starter.run(window_config, shaders_path) {
             error!("Error starting window: {e}");
         };
     }

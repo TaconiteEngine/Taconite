@@ -1,3 +1,4 @@
+use tracing::info;
 use wgpu::{Device, RenderPipeline, SurfaceConfiguration};
 use std::{fs, sync::Arc};
 
@@ -16,7 +17,11 @@ impl PipelineComposer {
     }
 
     pub fn new_pipeline(&mut self, shader_path: &str) {
+        info!("Creating a new pipeline");
+
         let shader_source = fs::read_to_string(shader_path);
+
+        info!("Read shader source: {shader_path}");
 
         let shader_source = match shader_source {
             Ok(v) => v,
@@ -88,6 +93,6 @@ impl PipelineComposer {
                 multiview: None,
             }));
 
-        self.pipeline = Err(PipelineError::NotInitialised);
+        // self.pipeline = Err(PipelineError::NotInitialised);
     }
 }

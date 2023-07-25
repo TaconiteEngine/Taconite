@@ -13,14 +13,14 @@ use tracing::{warn, error};
 pub struct WindowStarter();
 
 impl WindowStarter {
-    pub fn run(&mut self, window_config: WindowConfig) -> Result<(), Box<dyn std::error::Error>> {
-        pollster::block_on(self.create_window(window_config))?;
+    pub fn run(&mut self, window_config: WindowConfig, shaders_path: String) -> Result<(), Box<dyn std::error::Error>> {
+        pollster::block_on(self.create_window(window_config, shaders_path))?;
 
         Ok(())
     }
 
     // TODO: Add a way to get window config back in.
-    pub async fn create_window(&mut self, window_config: WindowConfig) -> Result<(), Box<dyn std::error::Error>> {
+    pub async fn create_window(&mut self, window_config: WindowConfig, shaders_path: String) -> Result<(), Box<dyn std::error::Error>> {
         let event_loop = EventLoop::new();
         let window = WindowBuilder::new()
             .with_inner_size(PhysicalSize::new(window_config.width, window_config.height))
@@ -29,6 +29,8 @@ impl WindowStarter {
             .map_err(|_| WindowError::WindowFailure)?;
 
         let mut state = State::new(window).await?;
+
+        state.pipeline_composer.new_pipeline(&shaders_path);
 
         event_loop.run(move |event, _, control_flow| {
             match event {
