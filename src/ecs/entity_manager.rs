@@ -286,7 +286,7 @@ impl EntityManager {
         component: T,
     ) -> &mut Self {
         if !self.has_component_manager::<T>() {
-            // @TODO: Better error handling
+            // TODO: Better error handling
             error!("Failed to add component to entity. It does not exist.");
             return self;
         }
