@@ -12,13 +12,13 @@ pub struct State {
     pub(crate) config: SurfaceConfiguration,
     pub(crate) size: PhysicalSize<u32>,
     pub(crate) window: Window,
-    pub(crate) pipeline_composer: PipelineComposer,
+    pub(crate) pipeline_composer: Option<PipelineComposer>,
     pub(crate) render_pipeline: RenderPipeline,
 }
 
 impl State {
     // Some wgpu types require async
-    pub async fn new(window: Window) -> Result<Self, WindowError> {
+    pub async fn new(window: Window) -> Result<Self, Box<dyn std::error::Error>> {
         let size = window.inner_size();
 
         // Instance is a handle to the GPU.
@@ -141,6 +141,7 @@ impl State {
             queue,
             config,
             size,
+            pipeline_composer: None,
             render_pipeline
         })
     }
@@ -152,7 +153,7 @@ impl State {
     pub(crate) fn resize(
         &mut self,
         new_size: winit::dpi::PhysicalSize<u32>,
-    ) -> Result<(), WindowError> {
+    ) -> Result<(), Box<dyn std::error::Error>> {
         if new_size.width > 0 && new_size.height > 0 {
             self.size = new_size;
             self.config.width = new_size.width;
@@ -161,7 +162,7 @@ impl State {
 
             Ok(())
         } else {
-            Err(WindowError::ResizeError)
+            Err(Box::new(WindowError::ResizeError))
         }
     }
 

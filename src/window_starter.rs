@@ -12,14 +12,14 @@ use tracing::{warn, error};
 pub struct WindowStarter();
 
 impl WindowStarter {
-    pub fn run(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
+    pub fn run(&mut self, window_config: WindowConfig) -> Result<(), Box<dyn std::error::Error>> {
         pollster::block_on(self.create_window(window_config))?;
 
         Ok(())
     }
 
     // TODO: Add a way to get window config back in.
-    pub async fn create_window(&mut self, window_config: WindowConfig) -> Result<(), WindowError> {
+    pub async fn create_window(&mut self, window_config: WindowConfig) -> Result<(), Box<dyn std::error::Error>> {
         let event_loop = EventLoop::new();
         let window = WindowBuilder::new()
             .with_inner_size(PhysicalSize::new(window_config.width, window_config.height))
@@ -36,7 +36,6 @@ impl WindowStarter {
                     window_id,
                 } if window_id == state.window().id() => {
                     if !state.input(event) {
-                        // UPDATED!
                         match event {
                             WindowEvent::CloseRequested
                             | WindowEvent::KeyboardInput {
