@@ -2,17 +2,19 @@
 
 use winit::{event::*, window::Window, dpi::PhysicalSize};
 use wgpu::{Surface, Device, Queue, SurfaceConfiguration, RenderPipeline};
-use crate::{errors::WindowError, PipelineComposer};
+use crate::{errors::{WindowError, PipelineError}, PipelineComposer};
+use std::sync::Arc;
+use tracing::warn;
 
 // TODO: Pluck which ones need to be public
 pub struct State {
     pub(crate) surface: Surface,
-    pub(crate) device: Device,
+    pub(crate) device: Arc<Device>,
     pub(crate) queue: Queue,
     pub(crate) config: SurfaceConfiguration,
     pub(crate) size: PhysicalSize<u32>,
     pub(crate) window: Window,
-    pub(crate) pipeline_composer: Option<PipelineComposer>,
+    pub(crate) pipeline_composer: PipelineComposer,
     pub(crate) render_pipeline: RenderPipeline,
 }
 
@@ -134,14 +136,18 @@ impl State {
             multiview: None,
         });
 
+        let device = Arc::new(device);
+
+        let pipeline_composer = PipelineComposer::new(device.clone(), config.clone());
+
         Ok(Self {
             window,
             surface,
-            device,
+            device: device.clone(),
             queue,
             config,
             size,
-            pipeline_composer: None,
+            pipeline_composer,
             render_pipeline
         })
     }
@@ -175,7 +181,7 @@ impl State {
         // Nothing to update yet
     }
 
-    pub(crate) fn render(&mut self) -> Result<(), wgpu::SurfaceError> {
+    pub(crate) fn render(&mut self) -> Result<(), Box<dyn std::error::Error>> {
         let output = self.surface.get_current_texture()?;
 
         let view = output
@@ -196,9 +202,9 @@ impl State {
                     resolve_target: None,
                     ops: wgpu::Operations {
                         load: wgpu::LoadOp::Clear(wgpu::Color {
-                            r: 0.1,
-                            g: 0.2,
-                            b: 0.3,
+                            r: 1.0,
+                            g: 1.0,
+                            b: 1.0,
                             a: 1.0,
                         }),
                         store: true,
@@ -207,7 +213,28 @@ impl State {
                 depth_stencil_attachment: None,
             });
 
-            render_pass.set_pipeline(&self.render_pipeline);
+            match &self.pipeline_composer.pipeline {
+                Ok(pipeline) => {
+                    // TODO: Don't clone pipeline
+                    let clone = pipeline.clone();
+
+                    render_pass.set_pipeline(&clone);
+                }
+                Err(e) => {
+                    match *e {
+                        PipelineError::BadPath => {
+                            return Err(PipelineError::BadPath.into())
+                        }
+                        PipelineError::NotInitialised => {
+                            render_pass.set_pipeline(&self.render_pipeline);
+
+                            warn!("Pipeline issue: {}", PipelineError::NotInitialised);
+                        }
+                    }
+                }
+            }
+    
+            // render_pass.set_pipeline(&self.render_pipeline);
             render_pass.draw(0..3, 0..1);
         }
 
