@@ -9,7 +9,6 @@ kanban-plugin: basic
 - [ ] Make all function any error
 - [ ] Pass window config to window starter
 - [ ] Create the PipelineComposer
-- [ ] Pass errors down everywhere
 
 
 ## Doing
@@ -19,6 +18,7 @@ kanban-plugin: basic
 ## Done
 
 **Complete**
+- [x] Pass errors down everywhere
 
 
 
