@@ -1,6 +1,7 @@
 use crate::state::State;
 use crate::{errors::*, WindowConfig};
 
+use wgpu::SurfaceError;
 use winit::dpi::PhysicalSize;
 use winit::event::*;
 use winit::event_loop::{ControlFlow, EventLoop};
@@ -64,16 +65,28 @@ impl WindowStarter {
                 }
                 Event::RedrawRequested(window_id) if window_id == state.window().id() => {
                     state.update();
+
                     match state.render() {
                         Ok(_) => {}
-                        // Reconfigure the surface if it's lost or outdated
-                        Err(wgpu::SurfaceError::Lost | wgpu::SurfaceError::Outdated) => {
-                            state.resize(state.size).unwrap();
+                        Err(e) => {
+                            // Reconfigure the surface if it's lost or outdated
+                            if let Some(err) = e.downcast_ref::<SurfaceError>() {
+                                if err == &wgpu::SurfaceError::Lost || err == &wgpu::SurfaceError::Outdated {
+                                    if state.resize(state.size).is_err() {
+                                        error!("Failed to resize window");
+                                        return;
+                                    }
+                                } else if err == &wgpu::SurfaceError::OutOfMemory {
+                                    *control_flow = ControlFlow::Exit;
+                                } else if err == &wgpu::SurfaceError::Timeout {
+                                    warn!("Surface timeout");
+                                }
+                            } else {
+                                // Not a surface error, close.
+                                error!(e);
+                                return;
+                            }
                         }
-                        // The system is out of memory, we should probably quit
-                        Err(wgpu::SurfaceError::OutOfMemory) => *control_flow = ControlFlow::Exit,
-
-                        Err(wgpu::SurfaceError::Timeout) => warn!("Surface timeout"),
                     }
                 }
                 Event::RedrawEventsCleared => {
